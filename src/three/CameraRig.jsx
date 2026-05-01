@@ -8,17 +8,22 @@ const CameraRig = () => {
 
     useFrame(() => {
         const scrollFactor = scrollY / window.innerHeight;
-        const t = Math.min(scrollFactor, 1);
+        const section = Math.round(scrollFactor);
 
-        //Move camera based on scroll
-        camera.position.z = 5 - t * 2;
-        camera.position.y = t * 0.3;
+        let target = { x: 0, y: 0, z: 0};
 
-        //Slight cinematic tilt
-        camera.rotation.x = -t * 0.05;
+        if (section === 1) {
+            target = { x: -2, y: 0, z: 4 };
+        } else if (section === 2) {
+            target = { x: 2, y: 0, z: 4};
+        } else if(section === 3) {
+            target = { x: 0, y: 0, z: 3};
+        }
 
         //Mouse Interaction
-        camera.position.x += (mouse.x * 2 - camera.position.x) * 0.05;
+        camera.position.x += (target.x - camera.position.x) * 0.05;
+        camera.position.y += (target.y - camera.position.y) * 0.05;
+        camera.position.z += (target.z - camera.position.z) * 0.05;
 
         camera.lookAt(0, 0, 0);
     });
