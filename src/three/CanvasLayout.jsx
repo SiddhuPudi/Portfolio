@@ -3,7 +3,7 @@ import Scene from "./Scene";
 
 const CanvasLayout = () => {
     return (
-        <div className = "w-full h-screen">
+        <div className = "fixed top-0 left-0 w-full h-screen">
             <Canvas camera = {{ position: [0, 0, 5], fov: 60 }}>
                 <fog attach="fog" args={["#0a0a0a", 5, 15]} />
                 <Scene />
