@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="h-[400vh] bg-black">
-      <CanvasLayout />
+      <CanvasLayout section={section} />
       <Overlay section={section} />
     </div>
   );

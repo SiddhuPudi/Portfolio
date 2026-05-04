@@ -10,7 +10,7 @@ const CameraRig = () => {
         const scrollFactor = scrollY / window.innerHeight;
         const section = Math.round(scrollFactor);
 
-        let target = { x: 0, y: 0, z: 0};
+        let target = { x: 0, y: 0, z: 5};
 
         if (section === 1) {
             target = { x: -2, y: 0, z: 4 };
