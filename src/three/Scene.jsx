@@ -11,7 +11,7 @@ const Scene = ({ section }) => {
             {/* 🔦 Key Light */}
             <directionalLight position={[2, 4, 2]} intensity={1} />
             {/* 💡 Neon Accent Light */}
-            <pointLight position={[0, 2, 2]} intensity={2} color="#00ffff" />
+            <pointLight position={[0, 2, 2]} intensity={0.6} color="#00ffff" />
 
             {/* 🧱 Floor */}
             <mesh rotation={[-Math.PI/2, 0, 0]} position={[0, -1, 0]}>

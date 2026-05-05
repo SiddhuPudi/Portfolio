@@ -17,9 +17,9 @@ const FloatingPanel = ({ position, isActive }) => {
             >
                 <boxGeometry args={[1.5, 1, 0.1]} />
                 <meshStandardMaterial
-                    color="#111111"
+                    color="#0f172a"
                     emissive="#00ffff"
-                    emissiveIntensity={isActive ? 2 : hovered ? 1.2 : 0.5}
+                    emissiveIntensity={isActive ? 0.8 : hovered ? 0.6 : 0.3}
                 />
             </mesh>
         </Float>
