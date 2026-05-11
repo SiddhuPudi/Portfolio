@@ -1,17 +1,37 @@
 export const featuredProjects = [
-    "Shinsei-Keikaku",
-    "Talent_Sync"
+  "Shinsei-Keikaku",
+  "Talent_Sync",
+  "Dietary-QA-System",
+  "POS-Tagging-Eval"
 ];
 
 export const projectMeta = {
-    "Shinsei-Keikaku": {
-        displayName: "Shinsei Keikaku",
-        description: "Full-stack productivity system",
-        tech: ["React", "Node.js"]
-    },
-    "Talent_Sync": {
-        displayName: "Talent Sync",
-        description: "",
-        tech: ["React", "Node.js", "Express", "PostgreSQL", "Prisma ORM", "Docker", "Swagger API Docs", "GitHub Actions for CI/CD", "Render", "Vercel"]
-    }
+  "Shinsei-Keikaku": {
+    displayName: "Shinsei Keikaku",
+    category: "Interactive Frontend System",
+    description: "Gamified productivity system featuring quest-based task management, EXP progression mechanics, and a futuristic interface.",
+    tech: ["React", "Node.js", "Framer Motion", "MongoDB"],
+    features: ["Immersive UI Systems", "Gamification Engine", "Interactive Progression"]
+  },
+  "Talent_Sync": {
+    displayName: "Talent Sync",
+    category: "Full Stack Infrastructure",
+    description: "Real-time professional networking platform designed for scalable concurrent communication and secure data transfer.",
+    tech: ["React", "Node.js", "PostgreSQL", "Socket.IO", "Docker", "Redis", "Kafka"],
+    features: ["Real-time Architecture", "Scalable Backend", "Secure Authentication"]
+  },
+  "Dietary-QA-System": {
+    displayName: "Dietary QA System",
+    category: "AI/NLP Application",
+    description: "Document-grounded question answering system specialized in dietary information retrieval using advanced natural language processing.",
+    tech: ["Python", "NLP", "TF-IDF", "Machine Learning"],
+    features: ["Information Retrieval", "Contextual Answering", "Document Grounding"]
+  },
+  "POS-Tagging-Eval": {
+    displayName: "POS Tagging Evaluation",
+    category: "NLP Systems",
+    description: "Evaluation framework for Part-of-Speech tagging algorithms, emphasizing accuracy metrics and text processing efficiency.",
+    tech: ["Python", "NLP", "Text Processing", "Statistical Evaluation"],
+    features: ["Algorithmic Evaluation", "Data Processing", "Metrics Tracking"]
+  }
 };

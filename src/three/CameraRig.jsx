@@ -1,34 +1,57 @@
-import {useFrame, useThree } from "@react-three/fiber";
-import { useRef } from "react";
-import useScrollPosition from "./hooks/useScrollPosition";
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
+import { useMemo, useRef } from "react";
 
-const CameraRig = () => {
-    const { camera, mouse } = useThree();
-    const ref = useRef();
+const CameraRig = ({ section }) => {
+  const currentTarget = useMemo(() => new THREE.Vector3(0, 0, 0), []);
+  const currentPos = useMemo(() => new THREE.Vector3(0, 0, 8), []);
+  
+  // Cinematic states for each section [CameraPosition, LookAtTarget]
+  const sectionStates = useMemo(() => [
+    // 0: Hero - calm, dead center, immersive
+    [new THREE.Vector3(0, 0, 8), new THREE.Vector3(0, 0, 0)],
+    // 1: About - shifted left, looking slightly right at geometry
+    [new THREE.Vector3(-4, 1, 5), new THREE.Vector3(2, 0, -2)],
+    // 2: Projects - pulled back, looking down at activated nodes
+    [new THREE.Vector3(0, 3, 7), new THREE.Vector3(0, -1, 0)],
+    // 3: Skills - shifted right, wide angle view
+    [new THREE.Vector3(5, -1, 5), new THREE.Vector3(-1, 0, 0)],
+    // 4: Resume - focused, minimalist
+    [new THREE.Vector3(0, -2, 6), new THREE.Vector3(0, 1, 0)],
+    // 5: Contact - very close, intimate terminal feel
+    [new THREE.Vector3(0, 0, 4), new THREE.Vector3(0, 0, 0)],
+  ], []);
 
-    useFrame(() => {
-        const scrollFactor = scrollY / window.innerHeight;
-        const section = Math.round(scrollFactor);
+  useFrame((state) => {
+    // 1. Get target states based on section
+    const targetPos = sectionStates[section]?.[0] || sectionStates[0][0];
+    const targetLookAt = sectionStates[section]?.[1] || sectionStates[0][1];
 
-        let target = { x: 0, y: 0, z: 5};
+    // 2. Smoothly interpolate position and lookAt target (cinematic easing)
+    // Faster transition initially, then slow settle
+    currentPos.lerp(targetPos, 0.04);
+    currentTarget.lerp(targetLookAt, 0.04);
 
-        if (section === 1) {
-            target = { x: -2, y: 0, z: 4 };
-        } else if (section === 2) {
-            target = { x: 2, y: 0, z: 4};
-        } else if(section === 3) {
-            target = { x: 0, y: 0, z: 3};
-        }
+    // 3. Add environmental breathing (slow sine wave)
+    const time = state.clock.getElapsedTime();
+    const breatheX = Math.sin(time * 0.5) * 0.1;
+    const breatheY = Math.cos(time * 0.4) * 0.1;
+    const breatheZ = Math.sin(time * 0.3) * 0.1;
 
-        //Mouse Interaction
-        camera.position.x += (target.x - camera.position.x) * 0.05;
-        camera.position.y += (target.y - camera.position.y) * 0.05;
-        camera.position.z += (target.z - camera.position.z) * 0.05;
+    // 4. Subtle mouse parallax (offsetting the breathing)
+    const mouseX = (state.mouse.x * window.innerWidth) / 2;
+    const mouseY = (state.mouse.y * window.innerHeight) / 2;
+    
+    // 5. Apply final camera position
+    state.camera.position.x = currentPos.x + breatheX + (mouseX * 0.0005);
+    state.camera.position.y = currentPos.y + breatheY - (mouseY * 0.0005);
+    state.camera.position.z = currentPos.z + breatheZ;
 
-        camera.lookAt(0, 0, 0);
-    });
+    // 6. Look at the interpolated target
+    state.camera.lookAt(currentTarget);
+  });
 
-    return null;
+  return null;
 };
 
 export default CameraRig;
