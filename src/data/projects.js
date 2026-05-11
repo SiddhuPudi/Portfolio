@@ -1,8 +1,7 @@
 export const featuredProjects = [
   "Shinsei-Keikaku",
   "Talent_Sync",
-  "Dietary-QA-System",
-  "POS-Tagging-Eval"
+  "Dietary-QA-System"
 ];
 
 export const projectMeta = {
@@ -26,12 +25,5 @@ export const projectMeta = {
     description: "Document-grounded question answering system specialized in dietary information retrieval using advanced natural language processing.",
     tech: ["Python", "NLP", "TF-IDF", "Machine Learning"],
     features: ["Information Retrieval", "Contextual Answering", "Document Grounding"]
-  },
-  "POS-Tagging-Eval": {
-    displayName: "POS Tagging Evaluation",
-    category: "NLP Systems",
-    description: "Evaluation framework for Part-of-Speech tagging algorithms, emphasizing accuracy metrics and text processing efficiency.",
-    tech: ["Python", "NLP", "Text Processing", "Statistical Evaluation"],
-    features: ["Algorithmic Evaluation", "Data Processing", "Metrics Tracking"]
   }
 };

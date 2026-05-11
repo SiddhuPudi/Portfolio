@@ -36,3 +36,12 @@ body::-webkit-scrollbar {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* Reusable hidden‑scrollbar for overflow containers */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
