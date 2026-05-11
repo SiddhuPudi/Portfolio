@@ -5,6 +5,7 @@ import Projects from "../../sections/Projects";
 import Skills from "../../sections/Skills";
 import Resume from "../../sections/Resume";
 import Contact from "../../sections/Contact";
+import SectionNav from "./SectionNav";
 
 const overlayVariants = {
   initial: { opacity: 0, y: 20 },
@@ -15,6 +16,7 @@ const overlayVariants = {
 const Overlay = ({ section }) => {
   return (
     <div className="fixed top-0 left-0 w-full h-screen pointer-events-none z-10 flex flex-col justify-center">
+      <SectionNav currentSection={section} />
       <motion.div
         key={section}
         variants={overlayVariants}
