@@ -3,6 +3,7 @@ import CustomCursor from "./components/CustomCursor";
 import { useState, useEffect } from "react";
 import Overlay from "./components/layout/Overlay";
 import Preloader from "./components/layout/Preloader";
+import ScrollProgress from "./components/layout/ScrollProgress";
 import { motion, AnimatePresence } from "framer-motion";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <div className="h-[600vh] bg-sys-bg">
+      <ScrollProgress />
       <CustomCursor />
       <AnimatePresence mode="wait">
         {!loaded ? (

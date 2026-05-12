@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-
+import { fadeUp, fadeIn, staggerContainerSlow } from "../animations/variants";
+import MagneticButton from "../components/MagneticButton";
 const Hero = () => {
   const scrollToProjects = () => {
     // Projects section is at index 2 of 6 (0‑5). Each occupies full viewport height.
@@ -15,12 +16,15 @@ const Hero = () => {
       </div>
 
       {/* Content — left-aligned editorial layout */}
-      <div className="relative z-10 max-w-3xl">
+      <motion.div 
+        variants={staggerContainerSlow}
+        initial="initial"
+        animate="animate"
+        className="relative z-10 max-w-3xl"
+      >
         {/* Eyebrow label */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
+          variants={fadeUp}
           className="flex items-center gap-3 mb-6"
         >
           <span className="h-px w-10 bg-sys-cyan" />
@@ -31,9 +35,7 @@ const Hero = () => {
 
         {/* Name — large editorial type */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+          variants={fadeUp}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[0.95]"
         >
           Pudi
@@ -45,9 +47,7 @@ const Hero = () => {
 
         {/* Descriptor line */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.75, duration: 0.5 }}
+          variants={fadeIn}
           className="mt-6 text-gray-500 text-sm md:text-base font-light tracking-wide max-w-md"
         >
           Building scalable systems · Real-time architecture · Interactive UI
@@ -55,32 +55,31 @@ const Hero = () => {
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.95, duration: 0.4 }}
+          variants={fadeUp}
           className="mt-8 flex flex-wrap gap-4"
         >
-          <button
+          <MagneticButton
             onClick={scrollToProjects}
-            className="bg-white text-black font-mono text-xs font-semibold px-8 py-3.5 rounded-full hover:bg-sys-cyan hover:text-black transition-all duration-300 tracking-wider uppercase"
+            className="bg-white text-black font-mono text-xs font-semibold px-8 py-3.5 rounded-full hover:bg-sys-cyan hover:text-black transition-all duration-300 tracking-wider uppercase block"
           >
             View Projects →
-          </button>
-          <a
+          </MagneticButton>
+          <MagneticButton
             href="/PUDI_THRIVIKRAM.pdf"
             download="Pudi_Thrivikram_Resume.pdf"
-            className="border border-white/15 text-white/80 font-mono text-xs px-8 py-3.5 rounded-full hover:border-white/40 hover:text-white transition-all duration-300 tracking-wider uppercase"
+            className="border border-white/15 text-white/80 font-mono text-xs px-8 py-3.5 rounded-full hover:border-white/40 hover:text-white transition-all duration-300 tracking-wider uppercase block"
           >
             Download Resume ↓
-          </a>
+          </MagneticButton>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Bottom stats bar — absolute, bottom-left */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.5 }}
+        variants={fadeIn}
+        initial="initial"
+        animate="animate"
+        transition={{ delay: 1.2 }}
         className="absolute bottom-8 right-8 sm:right-12 md:right-24 flex items-center gap-8"
       >
         <div className="text-right">
