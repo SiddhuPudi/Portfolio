@@ -127,7 +127,7 @@ const ProjectModal = ({ project, onClose }) => {
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [hoveredIndex, setHoveredIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
@@ -161,25 +161,30 @@ const Projects = () => {
     return { gradient: 'from-[#10b981] to-[#3b82f6]', text: 'text-emerald-400', border: 'border-emerald-400', borderHalf: 'border-emerald-400/50', bg: 'bg-emerald-400', bgLight: 'bg-emerald-400/10', hex: '#10b981' };
   };
 
-  const activeColors = getColors(hoveredIndex);
-
   return (
-    <div className="w-full h-full flex flex-col px-8 md:px-16 justify-center gap-8">
-      {/* HEADER ROW */}
-      <div className="flex items-end justify-between">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+    <section className="w-full h-full flex flex-col items-center justify-center px-6 sm:px-10 md:px-20 py-10">
+
+      {/* ── HEADER ── */}
+      <div className="w-full max-w-6xl mb-8 flex items-end justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="flex items-center gap-3 mb-2">
-            <span className="h-px w-10 bg-sys-cyan" />
-            <p className="font-mono text-xs text-sys-cyan tracking-[0.3em] uppercase">
+            <div className="h-px w-12 bg-sys-cyan" />
+            <span className="font-mono text-xs text-sys-cyan tracking-widest uppercase">
               03 // Work
-            </p>
+            </span>
+            <div className="h-px flex-1 bg-white/5" />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-none">
             Selected <span className="text-gradient">Work.</span>
           </h2>
+          <div className="h-[2px] w-16 bg-sys-cyan mt-4" />
         </motion.div>
-        
-        {/* Explore repos CTA */}
+
+        {/* All Repositories button — top right of header */}
         <motion.a
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -197,228 +202,173 @@ const Projects = () => {
         </motion.a>
       </div>
 
-      {/* MAIN CONTENT ROW */}
-      <div className="flex gap-8 md:gap-14 items-stretch flex-1 min-h-0 max-h-[480px]">
-        {/* LEFT — PROJECT LIST */}
-        <div className="flex flex-col justify-between w-2/5 min-w-0">
-          {loading ? (
-            <div className="flex flex-col gap-3">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="h-24 rounded-2xl bg-white/[0.02] animate-pulse border border-white/[0.03]" />
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col gap-3 relative z-10">
-              {projects.map((p, i) => {
-                const isActive = hoveredIndex === i;
-                const colors = getColors(i);
-                
-                return (
+      {/* ── CAROUSEL ROW ── */}
+      {loading ? (
+        <div className="flex gap-4 w-full max-w-6xl">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="flex-1 h-[400px] rounded-2xl bg-white/[0.02] animate-pulse border border-white/[0.03]" />
+          ))}
+        </div>
+      ) : (
+        <div className="flex gap-4 w-full max-w-6xl overflow-x-auto pb-4 hide-scrollbar">
+          {projects.map((p, i) => {
+            const isActive = i === activeIndex;
+            const colors = getColors(i);
+
+            return (
+              <motion.div
+                key={p.id}
+                layout
+                onClick={() => setActiveIndex(i)}
+                className={
+                  `relative rounded-2xl cursor-pointer flex flex-col justify-between flex-shrink-0 transition-colors duration-500 overflow-hidden ` +
+                  (isActive
+                    ? `w-[360px] min-h-[420px] p-8 bg-gradient-to-br ${colors.gradient} text-white`
+                    : `w-[130px] min-h-[420px] p-6 bg-white/[0.03] border border-white/10 text-gray-400 hover:bg-white/[0.05]`)
+                }
+                transition={{ layout: { duration: 0.45, ease: [0.25, 1, 0.5, 1] } }}
+                whileHover={{ scale: isActive ? 1 : 1.02 }}
+              >
+                {/* Watermark number */}
+                <div className={`font-mono font-black select-none pointer-events-none ${
+                  isActive
+                    ? "text-6xl text-white/10"
+                    : "text-4xl text-white/5"
+                }`}>
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+
+                {/* Arrow top-right */}
+                <div className="absolute top-4 right-4">
+                  <ArrowUpRight size={18} className={
+                    isActive ? "text-white/60" : "text-white/15"
+                  } />
+                </div>
+
+                {/* ACTIVE card content */}
+                {isActive ? (
                   <motion.div
-                    key={p.id}
-                    onClick={() => setSelectedProject(p)}
-                    onMouseEnter={() => setHoveredIndex(i)}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className={`group relative flex items-center gap-5 p-5 rounded-2xl cursor-pointer transition-all duration-300 border overflow-hidden ${
-                      isActive
-                        ? `border-white/10 bg-white/[0.04] shadow-lg shadow-black/40 scale-[1.02]`
-                        : "border-transparent hover:border-white/5 hover:bg-white/[0.02] scale-100 opacity-60 hover:opacity-100"
-                    }`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.15, duration: 0.3 }}
+                    className="relative z-10 mt-2 flex-1 flex flex-col"
                   >
-                    {/* Active glow background */}
-                    <AnimatePresence>
-                      {isActive && (
-                        <motion.div
-                          layoutId="projectGlowLeft"
-                          className={`absolute inset-0 bg-gradient-to-r ${colors.gradient} opacity-10 blur-xl pointer-events-none`}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                        />
-                      )}
-                    </AnimatePresence>
-
-                    {/* Active left bar */}
-                    <div
-                      className={`absolute left-0 top-4 bottom-4 w-[3px] rounded-r-full transition-all duration-300 ${
-                        isActive ? `${colors.bg} opacity-100` : "bg-transparent opacity-0"
-                      }`}
-                    />
-
-                    {/* Number */}
-                    <span
-                      className={`font-mono text-2xl font-black w-10 flex-shrink-0 transition-colors duration-300 ${
-                        isActive ? colors.text : "text-white/10"
-                      }`}
-                    >
-                      {String(i + 1).padStart(2, "0")}
+                    {/* Category badge */}
+                    <span className="self-start font-mono text-[10px] tracking-[0.2em] uppercase text-white/50 border border-white/20 px-3 py-1 rounded-full mb-4">
+                      {p.category}
                     </span>
 
-                    {/* Text */}
-                    <div className="flex-1 min-w-0 relative z-10">
-                      <h3
-                        className={`font-bold text-base transition-colors duration-300 truncate ${
-                          isActive ? "text-white" : "text-gray-400"
-                        }`}
-                      >
-                        {p.displayName}
-                      </h3>
-                      <p className={`font-mono text-xs mt-1 truncate transition-colors duration-300 ${
-                        isActive ? colors.text : "text-gray-600"
-                      }`}>
-                        {p.category}
-                      </p>
-                    </div>
-
-                    {/* Click hint — arrow icon */}
-                    <div
-                      className={`flex-shrink-0 transition-all duration-300 ${
-                        isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"
-                      }`}
-                    >
-                      <div className={`w-9 h-9 rounded-full border ${colors.borderHalf} ${colors.bgLight} flex items-center justify-center`}>
-                        <ArrowUpRight size={15} className={colors.text} />
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          )}
-
-          {/* Mobile repos link */}
-          <a
-            href="https://github.com/SiddhuPudi?tab=repositories"
-            target="_blank"
-            rel="noreferrer"
-            className="md:hidden mt-4 flex items-center gap-2 font-mono text-xs text-gray-500 hover:text-sys-cyan transition-colors"
-          >
-            <GithubIcon size={13} />
-            All Repositories
-            <ExternalLink size={11} />
-          </a>
-        </div>
-
-        {/* RIGHT — PREVIEW PANEL */}
-        <div className="flex-1 min-w-0 relative">
-          <AnimatePresence mode="wait">
-            {projects[hoveredIndex] && (
-              <motion.div
-                key={hoveredIndex}
-                initial={{ opacity: 0, y: 16, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -16, scale: 0.98 }}
-                transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-                className="h-full relative rounded-3xl"
-              >
-                {/* Glow behind card */}
-                <div
-                  className={`absolute -inset-4 rounded-3xl blur-2xl opacity-20 bg-gradient-to-br ${activeColors.gradient} transition-all duration-700`}
-                />
-
-                {/* Card with gradient border */}
-                <div className={`relative h-full p-[1px] rounded-3xl bg-gradient-to-br ${activeColors.gradient} bg-opacity-20`}>
-                  <div className="h-full rounded-[23px] bg-[#080808]/95 backdrop-blur-xl p-8 flex flex-col relative overflow-hidden">
-                    
-                    {/* Watermark Number */}
-                    <div 
-                      className={`absolute -right-6 -top-10 text-[12rem] font-black font-mono leading-none select-none opacity-5 transition-colors duration-700 ${activeColors.text}`}
-                    >
-                      {String(hoveredIndex + 1).padStart(2, "0")}
-                    </div>
-
-                    {/* Colored top accent bar per project */}
-                    <div className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${activeColors.gradient}`} />
-
-                    <div className="flex items-start justify-between mb-6 relative z-10">
-                      <span className={`font-mono text-xs tracking-[0.25em] uppercase px-4 py-1.5 rounded-full border ${activeColors.text} ${activeColors.bgLight} ${activeColors.borderHalf}`}>
-                        {projects[hoveredIndex].category}
-                      </span>
-                      <div className="flex gap-2">
-                        {projects[hoveredIndex].html_url && (
-                          <a
-                            href={projects[hoveredIndex].html_url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="w-9 h-9 rounded-xl border border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200 shadow-lg shadow-black/20"
-                          >
-                            <Code size={15} />
-                          </a>
-                        )}
-                        {projects[hoveredIndex].homepage && (
-                          <a
-                            href={projects[hoveredIndex].homepage}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="w-9 h-9 rounded-xl border border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200 shadow-lg shadow-black/20"
-                          >
-                            <ExternalLink size={15} />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-
                     {/* Project name */}
-                    <h3 className="text-3xl font-bold text-white mb-4 relative z-10">
-                      {projects[hoveredIndex].displayName}
+                    <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
+                      {p.displayName}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-gray-400 text-sm font-light leading-relaxed mb-6 relative z-10">
-                      {projects[hoveredIndex].description}
+                    <p className="text-white/60 text-xs font-light leading-relaxed mb-4">
+                      {p.description}
                     </p>
 
-                    {/* Features */}
-                    <div className="space-y-3 mb-8 flex-1 relative z-10">
-                      {projects[hoveredIndex].features?.map((f, idx) => (
-                        <motion.div
-                          key={`${hoveredIndex}-${idx}`}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.1 + idx * 0.1, duration: 0.4 }}
-                          className="flex items-center gap-3"
-                        >
-                          <div className={`w-5 h-px flex-shrink-0 ${activeColors.bg}`} />
-                          <span className="font-mono text-xs text-gray-300">{f}</span>
-                        </motion.div>
+                    <div className="h-px bg-white/20 mb-4" />
+
+                    {/* Features list */}
+                    <div className="space-y-2 flex-1">
+                      {p.features?.map((f, idx) => (
+                        <div key={idx} className="flex items-center gap-2.5">
+                          <div className="w-4 h-px bg-white/40 flex-shrink-0" />
+                          <span className="font-mono text-xs text-white/80">
+                            {f}
+                          </span>
+                        </div>
                       ))}
                     </div>
 
-                    {/* Tech tags + Details button at bottom */}
-                    <div className="flex items-center justify-between pt-5 border-t border-white/10 relative z-10">
-                      <div className="flex flex-wrap gap-2">
-                        {projects[hoveredIndex].tech?.map((t, idx) => (
-                          <motion.span
-                            key={`${hoveredIndex}-${idx}`}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.2 + idx * 0.05, duration: 0.3 }}
-                            className={`font-mono text-[10px] bg-white/[0.03] border border-white/10 px-3 py-1.5 rounded-lg uppercase tracking-wider ${activeColors.text}`}
-                          >
+                    {/* Tech tags + Details button */}
+                    <div className="mt-5 pt-4 border-t border-white/20">
+                      {/* Tech tags */}
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {p.tech?.map((t, idx) => (
+                          <span key={idx} className="font-mono text-[10px] bg-black/20 border border-white/20 px-2.5 py-1 rounded-lg text-white/70 uppercase tracking-wider">
                             {t}
-                          </motion.span>
+                          </span>
                         ))}
                       </div>
-                      <button
-                        onClick={() => setSelectedProject(projects[hoveredIndex])}
-                        className={`flex-shrink-0 ml-4 flex items-center gap-2 font-mono text-xs font-bold ${activeColors.text} hover:text-white border ${activeColors.borderHalf} hover:border-white/50 ${activeColors.bgLight} hover:bg-white/10 px-4 py-2 rounded-xl transition-all duration-300 shadow-lg shadow-black/20`}
-                      >
-                        Details
-                        <Maximize2 size={12} />
-                      </button>
+
+                      {/* Bottom row: links + Details button */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex gap-2">
+                          {p.html_url && (
+                            <a
+                              href={p.html_url}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={e => e.stopPropagation()}
+                              className="w-8 h-8 rounded-lg border border-white/20 bg-black/20 hover:bg-black/40 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
+                            >
+                              <Code size={14} />
+                            </a>
+                          )}
+                          {p.homepage && (
+                            <a
+                              href={p.homepage}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={e => e.stopPropagation()}
+                              className="w-8 h-8 rounded-lg border border-white/20 bg-black/20 hover:bg-black/40 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
+                            >
+                              <ExternalLink size={14} />
+                            </a>
+                          )}
+                        </div>
+
+                        <button
+                          onClick={e => {
+                            e.stopPropagation();
+                            setSelectedProject(p);
+                          }}
+                          className="flex items-center gap-2 font-mono text-xs font-bold text-white border border-white/30 hover:border-white/60 bg-black/20 hover:bg-black/40 px-4 py-2 rounded-xl transition-all duration-200"
+                        >
+                          Details
+                          <Maximize2 size={11} />
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  /* INACTIVE card — vertical rotated title */
+                  <div className="flex flex-col items-start justify-end flex-1 mt-4">
+                    <div
+                      className="text-sm font-semibold text-gray-500 whitespace-nowrap"
+                      style={{
+                        writingMode: "vertical-rl",
+                        transform: "rotate(180deg)",
+                        letterSpacing: "0.05em"
+                      }}
+                    >
+                      {p.displayName}
                     </div>
                   </div>
-                </div>
+                )}
               </motion.div>
-            )}
-          </AnimatePresence>
+            );
+          })}
         </div>
+      )}
+
+      {/* Mobile repos link */}
+      <div className="w-full max-w-6xl mt-4 md:hidden">
+        <a
+          href="https://github.com/SiddhuPudi?tab=repositories"
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-2 font-mono text-xs text-gray-500 hover:text-sys-cyan transition-colors"
+        >
+          <GithubIcon size={13} />
+          All Repositories
+          <ExternalLink size={11} />
+        </a>
       </div>
 
-      {/* PROJECT DETAIL MODAL */}
+      {/* ── PROJECT MODAL — untouched ── */}
       <AnimatePresence>
         {selectedProject && (
           <ProjectModal
@@ -427,7 +377,8 @@ const Projects = () => {
           />
         )}
       </AnimatePresence>
-    </div>
+
+    </section>
   );
 };
 
