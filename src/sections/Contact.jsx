@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Mail, Phone } from "lucide-react";
 
 /* Inline SVG icons — lucide-react v1.x removed brand icons */
 const GithubIcon = ({ size = 20, className }) => (
@@ -37,9 +37,9 @@ const Contact = () => {
   };
 
   return (
-    <section className="w-full min-h-screen flex flex-col md:flex-row gap-16 items-center justify-center px-8 md:px-20 py-16">
+    <section className="w-full min-h-screen flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-center justify-center px-6 md:px-10 lg:px-16 py-16">
       {/* LEFT COLUMN */}
-      <div className="w-full md:w-1/2">
+      <div className="w-full md:w-2/5">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
@@ -74,25 +74,69 @@ const Contact = () => {
           Together.
         </motion.h1>
 
-        <div className="mt-10">
-          <div className="font-mono text-xs text-gray-500 tracking-widest mb-3">DROP A LINE</div>
-          <a href="mailto:work.with.thrivikram@gmail.com" className="text-white text-lg hover:text-sys-cyan transition-colors">
-            work.with.thrivikram@gmail.com
+        {/* Contact cards grid */}
+        <div className="grid grid-cols-2 gap-3 mt-8">
+          {/* Email — large, full width */}
+          <a href="mailto:work.with.thrivikram@gmail.com" className="col-span-2 flex items-center gap-4 glass-panel rounded-2xl p-5 border border-white/[0.06] hover:border-[#EA4335]/30 transition-all duration-300 cursor-pointer group">
+            <div className="w-14 h-14 rounded-xl bg-[#EA4335]/20 flex items-center justify-center flex-shrink-0">
+              <Mail size={28} className="text-[#EA4335]" />
+            </div>
+            <div>
+              <div className="font-mono text-[9px] text-gray-500 tracking-[0.2em] uppercase mb-0.5">Email</div>
+              <div className="text-white text-sm font-medium">work.with.thrivikram@gmail.com</div>
+            </div>
           </a>
-        </div>
 
-        <div className="mt-8 flex gap-4">
-          <a href="https://github.com/SiddhuPudi" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:border-sys-cyan/50 hover:text-sys-cyan transition-all">
-            <GithubIcon size={20} />
+          {/* Phone */}
+          <a href="tel:+919390171829" className="flex items-center gap-3 glass-panel rounded-2xl p-4 border border-white/[0.06] hover:border-sys-cyan/20 transition-all duration-300 cursor-pointer group">
+            <div className="w-10 h-10 rounded-xl bg-sys-cyan/10 flex items-center justify-center flex-shrink-0">
+              <Phone size={18} className="text-sys-cyan" />
+            </div>
+            <div>
+              <div className="font-mono text-[9px] text-gray-500 tracking-[0.2em] uppercase mb-0.5">Phone</div>
+              <div className="text-white text-xs font-medium truncate max-w-[130px]">+91 93901 71829</div>
+            </div>
           </a>
-          <a href="https://linkedin.com/in/pudithrivikram" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:border-sys-cyan/50 hover:text-sys-cyan transition-all">
-            <LinkedinIcon size={20} />
+
+          {/* Instagram */}
+          <a href="https://www.instagram.com/siddhu_pudi" target="_blank" rel="noreferrer" className="flex items-center gap-3 glass-panel rounded-2xl p-4 border border-white/[0.06] hover:border-sys-cyan/20 transition-all duration-300 cursor-pointer group">
+            <div className="w-10 h-10 rounded-xl bg-[#E1306C]/10 flex items-center justify-center flex-shrink-0">
+              <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor" className="text-[#E1306C]">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg>
+            </div>
+            <div>
+              <div className="font-mono text-[9px] text-gray-500 tracking-[0.2em] uppercase mb-0.5">Instagram</div>
+              <div className="text-white text-xs font-medium truncate max-w-[130px]">@siddhu_pudi</div>
+            </div>
+          </a>
+
+          {/* GitHub */}
+          <a href="https://github.com/SiddhuPudi" target="_blank" rel="noreferrer" className="flex items-center gap-3 glass-panel rounded-2xl p-4 border border-white/[0.06] hover:border-sys-cyan/20 transition-all duration-300 cursor-pointer group">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
+              <GithubIcon size={18} className="text-white" />
+            </div>
+            <div>
+              <div className="font-mono text-[9px] text-gray-500 tracking-[0.2em] uppercase mb-0.5">GitHub</div>
+              <div className="text-white text-xs font-medium truncate max-w-[130px]">SiddhuPudi</div>
+            </div>
+          </a>
+
+          {/* LinkedIn */}
+          <a href="https://linkedin.com/in/pudithrivikram" target="_blank" rel="noreferrer" className="flex items-center gap-3 glass-panel rounded-2xl p-4 border border-white/[0.06] hover:border-sys-cyan/20 transition-all duration-300 cursor-pointer group">
+            <div className="w-10 h-10 rounded-xl bg-[#0A66C2]/20 flex items-center justify-center flex-shrink-0">
+              <LinkedinIcon size={18} className="text-[#0A66C2]" />
+            </div>
+            <div>
+              <div className="font-mono text-[9px] text-gray-500 tracking-[0.2em] uppercase mb-0.5">LinkedIn</div>
+              <div className="text-white text-xs font-medium truncate max-w-[130px]">thrivikram-pudi</div>
+            </div>
           </a>
         </div>
       </div>
 
       {/* RIGHT COLUMN – Form */}
-      <div className="w-full md:w-1/2">
+      <div className="w-full md:w-3/5">
         <AnimatePresence>
           {status === "success" ? (
             <motion.div

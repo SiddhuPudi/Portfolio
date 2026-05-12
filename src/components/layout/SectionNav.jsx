@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const sections = ["Hero", "About", "Projects", "Skills", "Resume", "Contact"];
+const sections = ["Hero", "About", "Projects", "Skills", "Education", "Contact"];
 
 const SectionNav = ({ currentSection }) => {
   const scrollToSection = (index) => {
