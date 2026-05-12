@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  cursor: none !important;
+}
 html {
   scroll-behavior: smooth;
   font-family: 'Inter', sans-serif;

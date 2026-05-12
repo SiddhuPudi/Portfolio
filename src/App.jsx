@@ -1,4 +1,5 @@
 import CanvasLayout from "./three/CanvasLayout";
+import CustomCursor from "./components/CustomCursor";
 import { useState, useEffect } from "react";
 import Overlay from "./components/layout/Overlay";
 import Preloader from "./components/layout/Preloader";
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <div className="h-[600vh] bg-sys-bg">
+      <CustomCursor />
       <AnimatePresence mode="wait">
         {!loaded ? (
           <Preloader key="preloader" onComplete={() => setLoaded(true)} />
