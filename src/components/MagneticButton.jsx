@@ -9,7 +9,8 @@ const MagneticButton = ({
   download, 
   target, 
   rel, 
-  pullStrength = 0.25 
+  pullStrength = 0.25,
+  ...restProps 
 }) => {
   const ref = useRef(null);
   
@@ -59,6 +60,7 @@ const MagneticButton = ({
       target={target}
       rel={rel}
       data-cursor-hover="true"
+      {...restProps}
     >
       {children}
     </Component>

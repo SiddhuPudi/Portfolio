@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const CustomCursor = () => {
   const dotRef = useRef(null);
@@ -7,8 +7,19 @@ const CustomCursor = () => {
   const ringPos = useRef({ x: 0, y: 0 });
   const hovering = useRef(false);
   const rafId = useRef(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
+    // Check for touch/coarse-pointer devices and bail out
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      setIsTouchDevice(true);
+      return;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isTouchDevice) return;
+
     const dot = dotRef.current;
     const ring = ringRef.current;
     if (!dot || !ring) return;
@@ -77,13 +88,17 @@ const CustomCursor = () => {
       document.removeEventListener("mouseout", onMouseOut);
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
-  }, []);
+  }, [isTouchDevice]);
+
+  // Do not render custom cursor on touchscreen devices
+  if (isTouchDevice) return null;
 
   return (
     <>
       {/* Inner dot */}
       <div
         ref={dotRef}
+        aria-hidden="true"
         style={{
           position: "fixed",
           top: 0,
@@ -103,6 +118,7 @@ const CustomCursor = () => {
       {/* Outer ring */}
       <div
         ref={ringRef}
+        aria-hidden="true"
         style={{
           position: "fixed",
           top: 0,

@@ -27,7 +27,7 @@ const Resume = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center px-6 md:px-16 py-10 overflow-y-auto hide-scrollbar">
+    <div role="region" aria-label="Resume and education" className="w-full h-full flex flex-col items-center justify-center px-6 md:px-16 py-10 overflow-y-auto hide-scrollbar">
 
 
       {/* ── Panel ── */}
@@ -131,6 +131,7 @@ const Resume = () => {
                   href="https://leetcode.com/u/siddhu_pudi/"
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Visit LeetCode profile"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, delay: 0.1 }}
@@ -156,6 +157,7 @@ const Resume = () => {
                   href="https://www.codechef.com/users/siddhu_pudi"
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Visit CodeChef profile"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, delay: 0.2 }}
@@ -212,6 +214,7 @@ const Resume = () => {
                 <motion.a
                   href="/PUDI_THRIVIKRAM.pdf"
                   download="Pudi_Thrivikram_Resume.pdf"
+                  aria-label="Download resume PDF"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                   className="relative z-10 inline-flex items-center gap-3 px-8 py-4 bg-sys-purple/10 border border-sys-purple/30 rounded-full text-sys-purple hover:bg-sys-purple/20 hover:border-sys-purple/50 transition-colors"
@@ -239,6 +242,7 @@ const Resume = () => {
             <button
               key={id}
               onClick={() => switchTab(id)}
+              aria-label={`Switch to ${label} tab`}
               className={`
                 relative flex items-center gap-2 px-5 py-2.5 rounded-xl
                 font-mono text-xs tracking-widest uppercase

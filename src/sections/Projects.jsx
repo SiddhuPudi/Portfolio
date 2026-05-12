@@ -37,6 +37,7 @@ const ProjectModal = ({ project, onClose }) => {
         {/* Close button */}
         <button
           onClick={onClose}
+          aria-label="Close project details"
           className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all z-10"
         >
           <X size={16} />
@@ -100,6 +101,7 @@ const ProjectModal = ({ project, onClose }) => {
               href={project.html_url}
               target="_blank"
               rel="noreferrer"
+              aria-label={`View ${project.displayName || project.name} source code on GitHub`}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/[0.03] hover:border-sys-cyan/40 hover:bg-sys-cyan/5 text-gray-300 hover:text-white transition-all duration-200 font-mono text-xs tracking-wider"
             >
               <Code size={14} />
@@ -111,6 +113,7 @@ const ProjectModal = ({ project, onClose }) => {
               href={project.homepage}
               target="_blank"
               rel="noreferrer"
+              aria-label={`View ${project.displayName || project.name} live demo`}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-sys-cyan/10 border border-sys-cyan/20 hover:bg-sys-cyan/20 text-sys-cyan transition-all duration-200 font-mono text-xs tracking-wider"
             >
               <ExternalLink size={14} />
@@ -162,7 +165,7 @@ const Projects = () => {
   };
 
   return (
-    <section className="w-full h-full flex flex-col items-center justify-center px-6 sm:px-10 md:px-20 py-10">
+    <section role="region" aria-label="Selected projects" className="w-full h-full flex flex-col items-center justify-center px-6 sm:px-10 md:px-20 py-10">
 
       {/* ── HEADER ── */}
       <div className="w-full max-w-6xl mb-8 flex items-end justify-between">
@@ -192,6 +195,7 @@ const Projects = () => {
           href="https://github.com/SiddhuPudi?tab=repositories"
           target="_blank"
           rel="noreferrer"
+          aria-label="View all repositories on GitHub"
           className="group hidden md:flex items-center gap-3 border border-white/10 hover:border-sys-cyan/50 bg-white/[0.03] hover:bg-sys-cyan/5 px-6 py-3 rounded-full transition-all duration-300 shadow-lg shadow-black/20"
         >
           <GithubIcon size={16} className="text-gray-400 group-hover:text-sys-cyan transition-colors duration-300" />
@@ -219,7 +223,22 @@ const Projects = () => {
               <motion.div
                 key={p.id}
                 layout
+                role="button"
+                tabIndex={0}
+                aria-label={`${isActive ? 'Selected project' : 'Select project'}: ${p.displayName || p.id}`}
                 onClick={() => setActiveIndex(i)}
+                onKeyDown={(e) => {
+                  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    setActiveIndex((i + 1) % projects.length);
+                  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    setActiveIndex((i - 1 + projects.length) % projects.length);
+                  } else if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setActiveIndex(i);
+                  }
+                }}
                 className={
                   `relative rounded-2xl cursor-pointer flex flex-col justify-between flex-shrink-0 transition-colors duration-500 overflow-hidden ` +
                   (isActive
@@ -302,6 +321,7 @@ const Projects = () => {
                               target="_blank"
                               rel="noreferrer"
                               onClick={e => e.stopPropagation()}
+                              aria-label={`View ${p.displayName || p.id} source code on GitHub`}
                               className="w-8 h-8 rounded-lg border border-white/20 bg-black/20 hover:bg-black/40 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
                             >
                               <Code size={14} />
@@ -313,6 +333,7 @@ const Projects = () => {
                               target="_blank"
                               rel="noreferrer"
                               onClick={e => e.stopPropagation()}
+                              aria-label={`View ${p.displayName || p.id} live demo`}
                               className="w-8 h-8 rounded-lg border border-white/20 bg-black/20 hover:bg-black/40 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
                             >
                               <ExternalLink size={14} />
@@ -325,6 +346,7 @@ const Projects = () => {
                             e.stopPropagation();
                             setSelectedProject(p);
                           }}
+                          aria-label={`View details for ${p.displayName || p.id}`}
                           className="flex items-center gap-2 font-mono text-xs font-bold text-white border border-white/30 hover:border-white/60 bg-black/20 hover:bg-black/40 px-4 py-2 rounded-xl transition-all duration-200"
                         >
                           Details
@@ -360,6 +382,7 @@ const Projects = () => {
           href="https://github.com/SiddhuPudi?tab=repositories"
           target="_blank"
           rel="noreferrer"
+          aria-label="View all repositories on GitHub"
           className="flex items-center gap-2 font-mono text-xs text-gray-500 hover:text-sys-cyan transition-colors"
         >
           <GithubIcon size={13} />

@@ -136,7 +136,7 @@ const Skills = () => {
   let delayCounter = 0;
 
   return (
-    <section className="w-full h-full flex flex-col justify-center items-center px-8 md:px-16 py-10 overflow-y-auto hide-scrollbar">
+    <section role="region" aria-label="Skills and technologies" className="w-full h-full flex flex-col justify-center items-center px-8 md:px-16 py-10 overflow-y-auto hide-scrollbar">
 
       {/* Header — full width centered */}
       <div className="w-full max-w-5xl mb-12">

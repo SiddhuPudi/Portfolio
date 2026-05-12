@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const About = () => {
   return (
-    <div className="w-full h-full flex flex-col-reverse md:flex-row items-center justify-center gap-10 md:gap-16 px-8 md:px-20">
+    <div role="region" aria-label="About me" className="w-full h-full flex flex-col-reverse md:flex-row items-center justify-center gap-10 md:gap-16 px-8 md:px-20">
       {/* LEFT COLUMN — Text Content */}
       <motion.div
         initial={{ opacity: 0, x: -40 }}

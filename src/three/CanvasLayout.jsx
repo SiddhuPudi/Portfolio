@@ -3,7 +3,7 @@ import Scene from "./Scene";
 
 const CanvasLayout = ({ section }) => {
   return (
-    <div className="fixed top-0 left-0 w-full h-screen z-0 bg-[#050505]">
+    <div className="fixed top-0 left-0 w-full h-screen z-0 bg-[#050505]" role="img" aria-label="Decorative 3D background animation" aria-hidden="true">
       <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
         {/* Cinematic Fog */}
         <fog attach="fog" args={["#050505", 5, 20]} />

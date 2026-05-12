@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import Overlay from "./components/layout/Overlay";
 import Preloader from "./components/layout/Preloader";
 import ScrollProgress from "./components/layout/ScrollProgress";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 function App() {
   const [section, setSection] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,7 +38,7 @@ function App() {
             key="app-content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
           >
             <CanvasLayout section={section} />
             <AnimatePresence>

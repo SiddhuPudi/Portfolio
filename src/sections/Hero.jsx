@@ -9,7 +9,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative w-full h-screen flex flex-col justify-end px-8 sm:px-12 md:px-24 pb-20 overflow-hidden">
+    <section role="main" aria-label="Hero introduction" className="relative w-full h-screen flex flex-col justify-end px-8 sm:px-12 md:px-24 pb-20 overflow-hidden">
       {/* Watermark — subtle, positioned behind content */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
         <span className="text-[18rem] md:text-[22rem] font-black text-white/[0.02] leading-none">PT</span>
@@ -60,6 +60,7 @@ const Hero = () => {
         >
           <MagneticButton
             onClick={scrollToProjects}
+            aria-label="View projects section"
             className="bg-white text-black font-mono text-xs font-semibold px-8 py-3.5 rounded-full hover:bg-sys-cyan hover:text-black transition-all duration-300 tracking-wider uppercase block"
           >
             View Projects →
@@ -67,6 +68,7 @@ const Hero = () => {
           <MagneticButton
             href="/PUDI_THRIVIKRAM.pdf"
             download="Pudi_Thrivikram_Resume.pdf"
+            aria-label="Download resume PDF"
             className="border border-white/15 text-white/80 font-mono text-xs px-8 py-3.5 rounded-full hover:border-white/40 hover:text-white transition-all duration-300 tracking-wider uppercase block"
           >
             Download Resume ↓
