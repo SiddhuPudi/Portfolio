@@ -1,6 +1,7 @@
-import CanvasLayout from "./three/CanvasLayout";
+import React, { useState, useEffect, Suspense } from "react";
 import CustomCursor from "./components/CustomCursor";
-import { useState, useEffect, Suspense } from "react";
+
+const CanvasLayout = React.lazy(() => import('./three/CanvasLayout'));
 import Overlay from "./components/layout/Overlay";
 import Preloader from "./components/layout/Preloader";
 import ScrollProgress from "./components/layout/ScrollProgress";
@@ -41,9 +42,7 @@ function App() {
             transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
           >
             <Suspense fallback={
-              <div className="fixed top-0 left-0 w-full h-screen z-0 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
-                <span className="text-gray-600 text-sm font-mono tracking-wider">Loading 3D scene…</span>
-              </div>
+              <div className="fixed inset-0 bg-gradient-to-br from-gray-950 to-black" />
             }>
               <CanvasLayout section={section} />
             </Suspense>

@@ -15,22 +15,49 @@ const LinkedinIcon = ({ size = 20, className }) => (
   </svg>
 );
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState("idle"); // idle, submitting, success, error
+  const [status, setStatus] = useState("idle"); // idle, loading, success, error
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.name || formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters.";
+    }
+    if (!formData.email || !EMAIL_REGEX.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (!formData.message || formData.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-    setStatus("submitting");
+    if (!validate()) return;
+
+    setStatus("loading");
     try {
-      const response = await fetch("https://formspree.io/f/mdabbqjq", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) setStatus("success");
-      else setStatus("error");
+      const response = await fetch(
+        `https://formspree.io/f/${import.meta.env.VITE_FORMSPREE_ID}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+      if (response.ok) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+      }
     } catch (err) {
       setStatus("error");
     }
@@ -148,7 +175,7 @@ const Contact = () => {
             >
               <CheckCircle2 className="w-12 h-12 text-sys-cyan" />
               <div className="font-mono text-sm text-sys-cyan tracking-widest">MESSAGE TRANSMITTED</div>
-              <div className="text-gray-400 text-sm">I&apos;ll get back to you soon.</div>
+              <div className="text-gray-400 text-sm">Message sent! I&apos;ll get back to you soon.</div>
             </motion.div>
           ) : (
             <motion.form
@@ -159,45 +186,88 @@ const Contact = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
+              noValidate
             >
-              <input
-                type="text"
-                aria-label="Your name"
-                placeholder="Name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full bg-transparent border-b border-white/10 py-4 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 transition-colors duration-300"
-                required
-              />
-              <input
-                type="email"
-                aria-label="Your email address"
-                placeholder="Email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full bg-transparent border-b border-white/10 py-4 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 transition-colors duration-300 mt-6"
-                required
-              />
-              <textarea
-                rows={4}
-                aria-label="Your message"
-                placeholder="Message"
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full bg-transparent border-b border-white/10 py-4 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 transition-colors duration-300 mt-6 resize-none"
-                required
-              />
+              {/* Error banner */}
+              {status === "error" && (
+                <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center">
+                  Something went wrong. Please try again or email me directly.
+                </div>
+              )}
+
+              {/* Name */}
+              <div>
+                <input
+                  type="text"
+                  aria-label="Your name"
+                  placeholder="Name"
+                  value={formData.name}
+                  onChange={(e) => {
+                    setFormData({ ...formData, name: e.target.value });
+                    if (errors.name) setErrors((prev) => ({ ...prev, name: "" }));
+                  }}
+                  className="w-full bg-transparent border-b border-white/10 py-4 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 transition-colors duration-300"
+                />
+                {errors.name && (
+                  <p className="text-red-400 text-xs mt-1 font-mono">{errors.name}</p>
+                )}
+              </div>
+
+              {/* Email */}
+              <div className="mt-6">
+                <input
+                  type="email"
+                  aria-label="Your email address"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={(e) => {
+                    setFormData({ ...formData, email: e.target.value });
+                    if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
+                  }}
+                  className="w-full bg-transparent border-b border-white/10 py-4 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 transition-colors duration-300"
+                />
+                {errors.email && (
+                  <p className="text-red-400 text-xs mt-1 font-mono">{errors.email}</p>
+                )}
+              </div>
+
+              {/* Message */}
+              <div className="mt-6">
+                <textarea
+                  rows={4}
+                  aria-label="Your message"
+                  placeholder="Message"
+                  value={formData.message}
+                  onChange={(e) => {
+                    setFormData({ ...formData, message: e.target.value });
+                    if (errors.message) setErrors((prev) => ({ ...prev, message: "" }));
+                  }}
+                  className="w-full bg-transparent border-b border-white/10 py-4 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 transition-colors duration-300 resize-none"
+                />
+                {errors.message && (
+                  <p className="text-red-400 text-xs mt-1 font-mono">{errors.message}</p>
+                )}
+              </div>
+
+              {/* Submit button */}
               <button
                 aria-label="Send message"
                 type="submit"
-                disabled={status === "submitting"}
-                className="w-full mt-10 py-4 rounded-full bg-white text-black font-mono text-sm font-bold tracking-widest uppercase hover:bg-sys-cyan transition-colors duration-300"
+                disabled={status === "loading"}
+                className="w-full mt-10 py-4 rounded-full bg-white text-black font-mono text-sm font-bold tracking-widest uppercase hover:bg-sys-cyan transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3"
               >
-                SEND MESSAGE →
+                {status === "loading" ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    SENDING...
+                  </>
+                ) : (
+                  "SEND MESSAGE →"
+                )}
               </button>
-              {status === "error" && (
-                <div className="text-red-400 mt-2 text-sm text-center">Error sending message. Please try again.</div>
-              )}
             </motion.form>
           )}
         </AnimatePresence>
