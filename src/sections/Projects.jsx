@@ -287,6 +287,17 @@ const Projects = () => {
                       {p.description}
                     </p>
 
+                    {/* Tags */}
+                    {p.tags && p.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {p.tags.map((tag, idx) => (
+                          <span key={idx} className="inline-block text-xs px-2 py-0.5 rounded-full border border-white/20 bg-white/5 text-white/80">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
                     <div className="h-px bg-white/20 mb-4" />
 
                     {/* Features list */}

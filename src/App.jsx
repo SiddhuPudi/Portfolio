@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Suspense } from "react";
 import CustomCursor from "./components/CustomCursor";
+import BackToTop from "./components/BackToTop";
 
 const CanvasLayout = React.lazy(() => import('./three/CanvasLayout'));
 import Overlay from "./components/layout/Overlay";
@@ -52,6 +53,7 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <BackToTop />
     </div>
   );
 }
