@@ -29,7 +29,7 @@ function App() {
   }, [loaded]);
 
   return (
-    <div className="h-[600vh] bg-sys-bg">
+    <div className="h-[600vh] bg-sys-bg overflow-y-auto snap-none md:snap-y md:snap-mandatory">
       <ScrollProgress />
       <CustomCursor />
       <AnimatePresence mode="wait">

@@ -165,10 +165,10 @@ const Projects = () => {
   };
 
   return (
-    <section role="region" aria-label="Selected projects" className="w-full h-full flex flex-col items-center justify-center px-6 sm:px-10 md:px-20 py-10">
+    <section role="region" aria-label="Selected projects" className="w-full min-h-screen md:min-h-0 md:h-full flex flex-col items-center justify-center px-4 sm:px-10 md:px-20 py-10 overflow-visible md:overflow-y-auto">
 
       {/* ── HEADER ── */}
-      <div className="w-full max-w-6xl mb-8 flex items-end justify-between">
+      <div className="w-full max-w-6xl mb-8 flex items-end justify-between px-2 md:px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -181,7 +181,7 @@ const Projects = () => {
             </span>
             <div className="h-px flex-1 bg-white/5" />
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white leading-none">
+          <h2 className="text-3xl md:text-5xl font-bold text-white leading-none">
             Selected <span className="text-gradient">Work.</span>
           </h2>
           <div className="h-[2px] w-16 bg-sys-cyan mt-4" />
@@ -208,13 +208,13 @@ const Projects = () => {
 
       {/* ── CAROUSEL ROW ── */}
       {loading ? (
-        <div className="flex gap-4 w-full max-w-6xl">
+        <div className="flex flex-col md:flex-row gap-4 w-full max-w-6xl px-2 md:px-0">
           {[1, 2, 3].map(i => (
             <div key={i} className="flex-1 h-[400px] rounded-2xl bg-white/[0.02] animate-pulse border border-white/[0.03]" />
           ))}
         </div>
       ) : (
-        <div className="flex gap-4 w-full max-w-6xl overflow-x-auto pb-4 hide-scrollbar">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-4 w-full max-w-6xl overflow-y-auto md:overflow-y-visible max-h-[75vh] md:max-h-none md:overflow-x-auto pb-4 hide-scrollbar px-2 md:px-0">
           {projects.map((p, i) => {
             const isActive = i === activeIndex;
             const colors = getColors(i);
@@ -240,10 +240,10 @@ const Projects = () => {
                   }
                 }}
                 className={
-                  `relative rounded-2xl cursor-pointer flex flex-col justify-between flex-shrink-0 transition-colors duration-500 overflow-hidden ` +
+                  `relative rounded-2xl cursor-pointer flex md:flex-col justify-between flex-shrink-0 transition-colors duration-500 overflow-visible md:overflow-hidden ` +
                   (isActive
-                    ? `w-[360px] min-h-[420px] p-8 bg-gradient-to-br ${colors.gradient} text-white`
-                    : `w-[130px] min-h-[420px] p-6 bg-white/[0.03] border border-white/10 text-gray-400 hover:bg-white/[0.05]`)
+                    ? `w-full md:w-[360px] flex-col min-h-[420px] p-6 pb-6 md:p-8 md:pb-8 bg-gradient-to-br ${colors.gradient} text-white`
+                    : `w-full md:w-[130px] flex-row md:flex-col h-20 md:h-auto md:min-h-[420px] p-4 pb-6 md:p-6 md:pb-6 bg-white/[0.03] border border-white/10 text-gray-400 hover:bg-white/[0.05] items-center md:items-start`)
                 }
                 transition={{ layout: { duration: 0.45, ease: [0.25, 1, 0.5, 1] } }}
                 whileHover={{ scale: isActive ? 1 : 1.02 }}
@@ -278,12 +278,12 @@ const Projects = () => {
                     </span>
 
                     {/* Project name */}
-                    <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2 leading-tight">
                       {p.displayName}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-white/60 text-xs font-light leading-relaxed mb-4">
+                    <p className="text-white/60 text-sm md:text-xs font-light leading-relaxed mb-4">
                       {p.description}
                     </p>
 
@@ -324,7 +324,7 @@ const Projects = () => {
                       </div>
 
                       {/* Bottom row: links + Details button */}
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between mt-2">
                         <div className="flex gap-2">
                           {p.html_url && (
                             <a
@@ -333,7 +333,7 @@ const Projects = () => {
                               rel="noreferrer"
                               onClick={e => e.stopPropagation()}
                               aria-label={`View ${p.displayName || p.id} source code on GitHub`}
-                              className="w-8 h-8 rounded-lg border border-white/20 bg-black/20 hover:bg-black/40 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
+                              className="w-11 h-11 md:w-8 md:h-8 rounded-lg border border-white/20 bg-black/20 hover:bg-black/40 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
                             >
                               <Code size={14} />
                             </a>
@@ -345,7 +345,7 @@ const Projects = () => {
                               rel="noreferrer"
                               onClick={e => e.stopPropagation()}
                               aria-label={`View ${p.displayName || p.id} live demo`}
-                              className="w-8 h-8 rounded-lg border border-white/20 bg-black/20 hover:bg-black/40 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
+                              className="w-11 h-11 md:w-8 md:h-8 rounded-lg border border-white/20 bg-black/20 hover:bg-black/40 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
                             >
                               <ExternalLink size={14} />
                             </a>
@@ -358,7 +358,7 @@ const Projects = () => {
                             setSelectedProject(p);
                           }}
                           aria-label={`View details for ${p.displayName || p.id}`}
-                          className="flex items-center gap-2 font-mono text-xs font-bold text-white border border-white/30 hover:border-white/60 bg-black/20 hover:bg-black/40 px-4 py-2 rounded-xl transition-all duration-200"
+                          className="flex items-center gap-2 font-mono text-xs font-bold text-white border border-white/30 hover:border-white/60 bg-black/20 hover:bg-black/40 px-4 py-3 md:py-2 rounded-xl transition-all duration-200 min-h-[44px] md:min-h-0"
                         >
                           Details
                           <Maximize2 size={11} />
@@ -367,15 +367,10 @@ const Projects = () => {
                     </div>
                   </motion.div>
                 ) : (
-                  /* INACTIVE card — vertical rotated title */
-                  <div className="flex flex-col items-start justify-end flex-1 mt-4">
+                  /* INACTIVE card — vertical rotated title on desktop, normal row on mobile */
+                  <div className="flex md:flex-col items-center md:items-start justify-center md:justify-end flex-1 md:mt-4 h-full">
                     <div
-                      className="text-sm font-semibold text-gray-500 whitespace-nowrap"
-                      style={{
-                        writingMode: "vertical-rl",
-                        transform: "rotate(180deg)",
-                        letterSpacing: "0.05em"
-                      }}
+                      className="text-base md:text-sm font-semibold text-gray-500 whitespace-nowrap md:rotate-180 md:[writing-mode:vertical-rl] tracking-[0.05em]"
                     >
                       {p.displayName}
                     </div>

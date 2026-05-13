@@ -82,7 +82,7 @@ const SkillPill = ({ skill, delay }) => {
       initial={{ opacity: 0, scale: 0.4, rotate: -8 }}
       animate={{ opacity: 1, scale: 1, rotate: 0 }}
       transition={{ delay, type: "spring", stiffness: 280, damping: 18 }}
-      className="relative flex flex-col items-center"
+      className="relative flex flex-col items-center w-full sm:w-auto"
       onMouseEnter={() => setShowTip(true)}
       onMouseLeave={() => setShowTip(false)}
     >
@@ -90,7 +90,7 @@ const SkillPill = ({ skill, delay }) => {
       <motion.div
         whileHover={{ scale: 1.28, y: -8, rotate: 4 }}
         whileTap={{ scale: 0.94 }}
-        className="w-16 h-16 rounded-2xl flex items-center justify-center cursor-default relative"
+        className="w-full sm:w-16 p-3 sm:p-0 h-auto sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-start sm:justify-center gap-3 sm:gap-0 cursor-default relative"
         style={{
           background: "linear-gradient(135deg, #0d0d1a 0%, #0a0a12 100%)",
           border: "1px solid rgba(255,255,255,0.08)",
@@ -98,23 +98,31 @@ const SkillPill = ({ skill, delay }) => {
           transition: "border-color 0.25s, box-shadow 0.25s, background 0.25s",
         }}
         onMouseEnter={e => {
-          e.currentTarget.style.borderColor = skill.color + "70";
-          e.currentTarget.style.boxShadow =
-            `0 0 28px ${skill.color}40, 0 0 8px ${skill.color}20`;
-          e.currentTarget.style.background =
-            `linear-gradient(135deg, ${skill.color}15 0%, #0a0a12 100%)`;
+          if (window.innerWidth >= 640) {
+            e.currentTarget.style.borderColor = skill.color + "70";
+            e.currentTarget.style.boxShadow =
+              `0 0 28px ${skill.color}40, 0 0 8px ${skill.color}20`;
+            e.currentTarget.style.background =
+              `linear-gradient(135deg, ${skill.color}15 0%, #0a0a12 100%)`;
+          }
         }}
         onMouseLeave={e => {
-          e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-          e.currentTarget.style.boxShadow = "none";
-          e.currentTarget.style.background =
-            "linear-gradient(135deg, #0d0d1a 0%, #0a0a12 100%)";
+          if (window.innerWidth >= 640) {
+            e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+            e.currentTarget.style.boxShadow = "none";
+            e.currentTarget.style.background =
+              "linear-gradient(135deg, #0d0d1a 0%, #0a0a12 100%)";
+          }
         }}
       >
-        <Icon size={30} />
+        <Icon size={30} className="w-[24px] h-[24px] sm:w-[30px] sm:h-[30px]" />
+        {/* Mobile label */}
+        <span className="sm:hidden font-mono text-xs text-gray-300 truncate">
+          {skill.name}
+        </span>
       </motion.div>
 
-      {/* Tooltip below icon on hover */}
+      {/* Tooltip below icon on hover (desktop only) */}
       <AnimatePresence>
         {showTip && (
           <motion.div
@@ -122,7 +130,7 @@ const SkillPill = ({ skill, delay }) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.85 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full mt-2 font-mono text-[10px] text-gray-400 bg-[#0a0a12] border border-white/[0.08] px-2 py-1 rounded-md whitespace-nowrap z-10 pointer-events-none"
+            className="hidden sm:block absolute top-full mt-2 font-mono text-[10px] text-gray-400 bg-[#0a0a12] border border-white/[0.08] px-2 py-1 rounded-md whitespace-nowrap z-10 pointer-events-none"
           >
             {skill.name}
           </motion.div>
@@ -136,7 +144,7 @@ const Skills = () => {
   let delayCounter = 0;
 
   return (
-    <section role="region" aria-label="Skills and technologies" className="w-full h-full flex flex-col justify-center items-center px-8 md:px-16 py-10 overflow-y-auto hide-scrollbar">
+    <section role="region" aria-label="Skills and technologies" className="w-full h-auto min-h-screen flex flex-col justify-center items-center px-4 sm:px-8 md:px-16 py-10 overflow-y-auto hide-scrollbar">
 
       {/* Header — full width centered */}
       <div className="w-full max-w-5xl mb-12">
@@ -147,14 +155,14 @@ const Skills = () => {
           </span>
           <div className="h-px flex-1 bg-white/5" />
         </div>
-        <h2 className="text-5xl md:text-6xl font-bold text-white leading-none mt-2">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-none mt-2">
           Core <span className="text-gradient">Arsenal.</span>
         </h2>
         <div className="h-[2px] w-20 bg-sys-cyan mt-5" />
       </div>
 
       {/* All categories — full width, generous spacing */}
-      <div className="w-full max-w-5xl flex flex-col gap-12">
+      <div className="w-full max-w-5xl flex flex-col gap-12 max-h-[70vh] overflow-y-auto md:max-h-none md:overflow-visible pr-2 md:pr-0">
         {CATEGORIES.map((cat, ci) => {
           return (
             <div key={cat.id}>
@@ -173,7 +181,7 @@ const Skills = () => {
               </motion.div>
 
               {/* Icon pill row — wraps on smaller screens */}
-              <div className="flex flex-wrap gap-4">
+              <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 sm:gap-4 w-full">
                 {cat.skills.map(s => {
                   const d = 0.025 * delayCounter++;
                   return (

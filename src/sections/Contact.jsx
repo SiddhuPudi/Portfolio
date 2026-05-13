@@ -64,9 +64,10 @@ const Contact = () => {
   };
 
   return (
-    <section role="region" aria-label="Contact information" className="w-full min-h-screen flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-center justify-center px-6 md:px-10 lg:px-16 py-16">
-      {/* LEFT COLUMN */}
-      <div className="w-full md:w-2/5">
+    <section role="region" aria-label="Contact information" className="w-full h-auto min-h-screen overflow-y-auto pb-20 snap-none md:snap-start flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-center justify-center px-4 sm:px-8 md:px-10 lg:px-16 py-16 md:overflow-visible">
+      <div className="w-full flex flex-col md:flex-row md:items-center md:justify-center md:h-full md:max-h-none md:overflow-visible max-h-[70vh] overflow-y-auto">
+        {/* LEFT COLUMN */}
+      <div className="w-full pb-6 md:pb-0 md:w-2/5">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
@@ -80,7 +81,7 @@ const Contact = () => {
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.25, duration: 0.6 }}
-          className="text-5xl md:text-6xl font-bold text-white leading-tight"
+          className="text-2xl sm:text-4xl md:text-6xl font-bold text-white leading-tight"
         >
           Let&apos;s Build
         </motion.h1>
@@ -88,7 +89,7 @@ const Contact = () => {
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="text-5xl md:text-6xl font-bold text-white leading-tight"
+          className="text-2xl sm:text-4xl md:text-6xl font-bold text-white leading-tight"
         >
           Something
         </motion.h1>
@@ -96,13 +97,13 @@ const Contact = () => {
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.55, duration: 0.6 }}
-          className="text-5xl md:text-6xl font-bold text-sys-cyan leading-tight"
+          className="text-2xl sm:text-4xl md:text-6xl font-bold text-sys-cyan leading-tight"
         >
           Together.
         </motion.h1>
 
         {/* Contact cards grid */}
-        <div className="grid grid-cols-2 gap-3 mt-8">
+        <div className="grid grid-cols-2 gap-2 md:gap-3 mt-8">
           {/* Email — large, full width */}
           <a href="mailto:work.with.thrivikram@gmail.com" aria-label="Send email to work.with.thrivikram@gmail.com" className="col-span-2 flex items-center gap-4 glass-panel rounded-2xl p-5 border border-white/[0.06] hover:border-[#EA4335]/30 transition-all duration-300 cursor-pointer group">
             <div className="w-14 h-14 rounded-xl bg-[#EA4335]/20 flex items-center justify-center flex-shrink-0">
@@ -110,7 +111,7 @@ const Contact = () => {
             </div>
             <div>
               <div className="font-mono text-[9px] text-gray-500 tracking-[0.2em] uppercase mb-0.5">Email</div>
-              <div className="text-white text-sm font-medium">work.with.thrivikram@gmail.com</div>
+              <div className="text-white text-[10px] sm:text-sm font-medium">work.with.thrivikram@gmail.com</div>
             </div>
           </a>
 
@@ -181,7 +182,7 @@ const Contact = () => {
             <motion.form
               key="form"
               onSubmit={handleSubmit}
-              className="glass-panel rounded-2xl p-8 border border-white/5"
+              className="glass-panel rounded-2xl p-6 pb-28 sm:p-8 border border-white/5 overflow-visible"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
@@ -196,7 +197,7 @@ const Contact = () => {
               )}
 
               {/* Name */}
-              <div>
+              <div className="mb-4 md:mb-0">
                 <input
                   type="text"
                   aria-label="Your name"
@@ -206,7 +207,7 @@ const Contact = () => {
                     setFormData({ ...formData, name: e.target.value });
                     if (errors.name) setErrors((prev) => ({ ...prev, name: "" }));
                   }}
-                  className="w-full bg-transparent border-b border-white/10 py-4 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 transition-colors duration-300"
+                  className="w-full bg-transparent border border-white/10 md:border-t-0 md:border-l-0 md:border-r-0 md:border-b p-3 md:py-4 md:px-0 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 rounded-lg md:rounded-none transition-colors duration-300"
                 />
                 {errors.name && (
                   <p className="text-red-400 text-xs mt-1 font-mono">{errors.name}</p>
@@ -214,7 +215,7 @@ const Contact = () => {
               </div>
 
               {/* Email */}
-              <div className="mt-6">
+              <div className="mt-0 md:mt-6 mb-4 md:mb-0">
                 <input
                   type="email"
                   aria-label="Your email address"
@@ -224,7 +225,7 @@ const Contact = () => {
                     setFormData({ ...formData, email: e.target.value });
                     if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
                   }}
-                  className="w-full bg-transparent border-b border-white/10 py-4 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 transition-colors duration-300"
+                  className="w-full bg-transparent border border-white/10 md:border-t-0 md:border-l-0 md:border-r-0 md:border-b p-3 md:py-4 md:px-0 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 rounded-lg md:rounded-none transition-colors duration-300"
                 />
                 {errors.email && (
                   <p className="text-red-400 text-xs mt-1 font-mono">{errors.email}</p>
@@ -232,7 +233,7 @@ const Contact = () => {
               </div>
 
               {/* Message */}
-              <div className="mt-6">
+              <div className="mt-0 md:mt-6 mb-4 md:mb-0">
                 <textarea
                   rows={4}
                   aria-label="Your message"
@@ -242,7 +243,7 @@ const Contact = () => {
                     setFormData({ ...formData, message: e.target.value });
                     if (errors.message) setErrors((prev) => ({ ...prev, message: "" }));
                   }}
-                  className="w-full bg-transparent border-b border-white/10 py-4 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 transition-colors duration-300 resize-none"
+                  className="w-full bg-transparent border border-white/10 md:border-t-0 md:border-l-0 md:border-r-0 md:border-b p-3 md:py-4 md:px-0 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 rounded-lg md:rounded-none transition-colors duration-300 resize-none min-h-[120px]"
                 />
                 {errors.message && (
                   <p className="text-red-400 text-xs mt-1 font-mono">{errors.message}</p>
@@ -250,27 +251,30 @@ const Contact = () => {
               </div>
 
               {/* Submit button */}
-              <button
-                aria-label="Send message"
-                type="submit"
-                disabled={status === "loading"}
-                className="w-full mt-10 py-4 rounded-full bg-white text-black font-mono text-sm font-bold tracking-widest uppercase hover:bg-sys-cyan transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3"
-              >
-                {status === "loading" ? (
-                  <>
-                    <svg className="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    SENDING...
-                  </>
-                ) : (
-                  "SEND MESSAGE →"
-                )}
-              </button>
+              <div className="mb-6 md:mb-0">
+                <button
+                  aria-label="Send message"
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="w-full mt-6 md:mt-10 py-3 md:py-4 rounded-full bg-white text-black font-mono text-sm font-bold tracking-widest uppercase hover:bg-sys-cyan transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                >
+                  {status === "loading" ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                      </svg>
+                      SENDING...
+                    </>
+                  ) : (
+                    "SEND MESSAGE →"
+                  )}
+                </button>
+              </div>
             </motion.form>
           )}
         </AnimatePresence>
+        </div>
       </div>
     </section>
   );

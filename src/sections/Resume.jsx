@@ -27,9 +27,7 @@ const Resume = () => {
   };
 
   return (
-    <div role="region" aria-label="Resume and education" className="w-full h-full flex flex-col items-center justify-center px-6 md:px-16 py-10 overflow-y-auto hide-scrollbar">
-
-
+    <div role="region" aria-label="Resume and education" className="w-full h-full flex flex-col items-center justify-center px-4 sm:px-8 md:px-16 py-10 overflow-y-auto hide-scrollbar">
       {/* ── Panel ── */}
       <div className="w-full max-w-2xl relative">
         <AnimatePresence mode="wait" custom={dir}>
