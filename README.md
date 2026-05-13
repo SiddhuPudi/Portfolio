@@ -4,6 +4,8 @@
 
 **A high-fidelity, immersive web portfolio blending 3D environments with premium sci-fi, terminal-inspired aesthetics.**
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-thrivikram--portfolio.vercel.app-00E5FF?style=for-the-badge&logo=vercel&logoColor=white)](https://thrivikram-portfolio.vercel.app/)
+
 ![React](https://img.shields.io/badge/React-19.2.5-00D8FF?style=for-the-badge&logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-8.0.10-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-0.184.0-white?style=for-the-badge&logo=threedotjs&logoColor=black)
@@ -26,12 +28,14 @@ The UI language leans into a **modern, editorial sci-fi aesthetic**, featuring g
 
 ## ✨ Features
 
-- 🧊 **Persistent 3D Canvas:** A background 3D scene built with Three.js and `@react-three/fiber` that dynamically shifts camera angles based on the user's scroll progression.
-- 🎬 **Cinematic Animations:** Fluid entrance, exit, and layout animations powered by **Framer Motion**, including shared layout transitions for projects and skills carousels.
-- 📱 **100% Responsive Design:** Implements proportional 50/50 split layouts on desktop that gracefully collapse into stacked mobile views without losing the premium feel.
+- 🧊 **Persistent 3D Canvas:** A background 3D scene built with Three.js and `@react-three/fiber` that dynamically shifts camera angles based on the user's scroll progression. Includes **Suspense fallback, ErrorBoundary**, and **GPU compatibility checks** for robust rendering.
+- 🎬 **Cinematic Animations:** Fluid entrance, exit, and layout animations powered by **Framer Motion**. Enhanced with **Magnetic Buttons**, a **Scroll Progress Indicator**, and a **Back-to-Top Button**.
+- 📱 **100% Responsive Design:** Implements proportional 50/50 split layouts on desktop that gracefully collapse into stacked mobile views. Features a dedicated **Mobile Navigation Menu** for seamless smaller-screen browsing.
 - 🛸 **Custom Neon Cursor:** A highly optimized global custom cursor featuring an instant-follow neon core and a smoothly trailing `requestAnimationFrame` outer ring that reacts to interactive elements.
-- 🚀 **Performance Optimized:** Uses Vite for lightning-fast HMR and highly optimized build sizes. Heavy SVG assets are inlined, and scroll events are meticulously handled to prevent layout thrashing.
-- 📬 **Live Contact Form:** Integrated with Formspree for serverless, secure email handling directly from the frontend.
+- 🚀 **Performance & SEO Optimized:** Uses Vite for lightning-fast HMR. The 3D canvas is **lazy-loaded**. Comprehensive **SEO metadata**, including Canonical URLs, Open Graph, and Twitter Cards are implemented.
+- ♿ **Web Accessibility:** Improved accessibility with extensive **ARIA labels, keyboard navigation support**, and respect for **reduced motion** preferences.
+- 📬 **Live Contact Form:** Integrated with Formspree for serverless, secure email handling directly from the frontend, with **robust validation and user feedback**.
+- 🧪 **Testing Suite:** Integrated **Vitest** for component smoke testing and data validation.
 
 ---
 
@@ -40,6 +44,7 @@ The UI language leans into a **modern, editorial sci-fi aesthetic**, featuring g
 ### Core
 * **[React 19](https://react.dev/)** — UI Library
 * **[Vite](https://vitejs.dev/)** — Next-Generation Frontend Tooling
+* **[Vitest](https://vitest.dev/)** — Blazing Fast Unit Test Framework
 
 ### 3D & Graphics
 * **[Three.js](https://threejs.org/)** — 3D Library
