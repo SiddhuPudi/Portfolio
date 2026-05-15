@@ -5,6 +5,8 @@
 **A high-fidelity, immersive web portfolio blending 3D environments with premium sci-fi, terminal-inspired aesthetics.**
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-thrivikram--portfolio.vercel.app-00E5FF?style=for-the-badge&logo=vercel&logoColor=white)](https://thrivikram-portfolio.vercel.app/)
+![CI](https://github.com/SiddhuPudi/Portfolio/actions/workflows/ci.yml/badge.svg)
+![Lighthouse](https://img.shields.io/badge/lighthouse-passing-brightgreen)
 
 ![React](https://img.shields.io/badge/React-19.2.5-00D8FF?style=for-the-badge&logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-8.0.10-646CFF?style=for-the-badge&logo=vite&logoColor=white)
