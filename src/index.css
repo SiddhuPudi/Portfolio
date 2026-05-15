@@ -4,6 +4,24 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --sys-bg: #050505;
+  --sys-text: white;
+  --panel-bg: rgba(10, 10, 10, 0.4);
+  --panel-border: rgba(255, 255, 255, 0.05);
+  --panel-shadow: rgba(0, 0, 0, 0.5);
+  --neon-opacity: 1;
+}
+
+html.light {
+  --sys-bg: #f8f7f4;
+  --sys-text: #1a1a1a;
+  --panel-bg: rgba(255, 255, 255, 0.6);
+  --panel-border: rgba(0, 0, 0, 0.1);
+  --panel-shadow: rgba(0, 0, 0, 0.05);
+  --neon-opacity: 0.6;
+}
+
 * {
   cursor: none !important;
 }
@@ -14,8 +32,8 @@ html {
 
 body {
   margin: 0;
-  background: #050505;
-  color: white;
+  background: var(--sys-bg);
+  color: var(--sys-text);
   overflow-x: hidden;
   /* hide scrollbar for premium feel */
   -ms-overflow-style: none;
@@ -27,15 +45,15 @@ body::-webkit-scrollbar {
 }
 
 .glass-panel {
-  background: rgba(10, 10, 10, 0.4);
+  background: var(--panel-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 4px 30px var(--panel-shadow);
 }
 
 .text-gradient {
-  background: linear-gradient(to right, #06b6d4, #8b5cf6);
+  background: linear-gradient(to right, rgba(6, 182, 212, var(--neon-opacity)), rgba(139, 92, 246, var(--neon-opacity)));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

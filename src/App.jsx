@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import CustomCursor from "./components/CustomCursor";
 import BackToTop from "./components/BackToTop";
+import ThemeToggle from "./components/ThemeToggle";
 
 const CanvasLayout = React.lazy(() => import('./three/CanvasLayout'));
 import Overlay from "./components/layout/Overlay";
@@ -29,9 +30,10 @@ function App() {
   }, [loaded]);
 
   return (
-    <div className="h-[600vh] bg-sys-bg overflow-y-auto snap-none md:snap-y md:snap-mandatory">
+    <div className="h-[600vh] bg-sys-bg overflow-y-auto snap-none md:snap-y md:snap-mandatory transition-colors duration-300">
       <ScrollProgress />
       <CustomCursor />
+      <ThemeToggle />
       <AnimatePresence mode="wait">
         {!loaded ? (
           <Preloader key="preloader" onComplete={() => setLoaded(true)} />
