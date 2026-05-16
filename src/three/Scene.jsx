@@ -5,6 +5,7 @@ import { ForegroundDepth } from "./environments/ForegroundDepth";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useRef } from "react";
+import PropTypes from "prop-types";
 
 const Scene = ({ section, lowPerf = false, bgColor = '#050505' }) => {
   const dirLightRef = useRef();
@@ -79,6 +80,17 @@ const Scene = ({ section, lowPerf = false, bgColor = '#050505' }) => {
       {!lowPerf && <ForegroundDepth section={section} />}
     </>
   );
+};
+
+Scene.propTypes = {
+  section: PropTypes.number.isRequired,
+  lowPerf: PropTypes.bool,
+  bgColor: PropTypes.string,
+};
+
+Scene.defaultProps = {
+  lowPerf: false,
+  bgColor: '#050505',
 };
 
 export default Scene;

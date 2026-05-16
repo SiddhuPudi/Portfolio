@@ -4,6 +4,7 @@ import { PerformanceMonitor } from "@react-three/drei";
 import Scene from "./Scene";
 import CanvasErrorBoundary from "../components/CanvasErrorBoundary";
 import { useTheme } from "../context/ThemeContext";
+import PropTypes from "prop-types";
 
 const CanvasLayout = ({ section }) => {
   const { theme } = useTheme();
@@ -44,6 +45,10 @@ const CanvasLayout = ({ section }) => {
       </div>
     </CanvasErrorBoundary>
   );
+};
+
+CanvasLayout.propTypes = {
+  section: PropTypes.number.isRequired,
 };
 
 export default CanvasLayout;

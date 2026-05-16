@@ -1,6 +1,7 @@
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useMemo, useRef } from "react";
+import PropTypes from "prop-types";
 
 const CameraRig = ({ section }) => {
   const currentTarget = useMemo(() => new THREE.Vector3(0, 0, 0), []);
@@ -52,6 +53,10 @@ const CameraRig = ({ section }) => {
   });
 
   return null;
+};
+
+CameraRig.propTypes = {
+  section: PropTypes.number.isRequired,
 };
 
 export default CameraRig;

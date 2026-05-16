@@ -16,7 +16,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="fixed top-6 right-6 z-50 p-3 rounded-full glass-panel flex items-center justify-center transition-colors hover:bg-white/10 dark:hover:bg-white/10"
+      className="fixed top-6 left-6 z-50 p-3 rounded-full glass-panel flex items-center justify-center transition-colors hover:bg-white/10 dark:hover:bg-white/10"
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       <AnimatePresence mode="wait">

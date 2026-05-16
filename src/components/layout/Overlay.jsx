@@ -6,6 +6,7 @@ import Skills from "../../sections/Skills";
 import Resume from "../../sections/Resume";
 import Contact from "../../sections/Contact";
 import SectionNav from "./SectionNav";
+import PropTypes from "prop-types";
 
 const overlayVariants = {
   initial: { opacity: 0, y: 20 },
@@ -35,6 +36,11 @@ const Overlay = ({ section }) => {
       </motion.div>
     </div>
   );
+};
+
+Overlay.propTypes = {
+  section: PropTypes.number.isRequired,
+  setSection: PropTypes.func.isRequired,
 };
 
 export default Overlay;
