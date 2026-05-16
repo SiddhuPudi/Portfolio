@@ -27,7 +27,7 @@ const CanvasLayout = ({ section }) => {
   return (
     <CanvasErrorBoundary>
       <div className="fixed top-0 left-0 w-full h-screen z-0 transition-colors duration-300" style={{ backgroundColor: bgColor }} role="img" aria-label="Decorative 3D background animation" aria-hidden="true">
-        <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
+        <Canvas camera={{ position: [0, 0, 8], fov: 45 }} role="img" aria-label="Interactive 3D background scene that responds to scroll position">
           <color attach="background" args={[bgColor]} />
           {/* Cinematic Fog */}
           <fog attach="fog" args={[bgColor, 5, 20]} />

@@ -18,11 +18,12 @@ const LinkedinIcon = ({ size = 20, className }) => (
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "", _gotcha: "" });
   const [status, setStatus] = useState("idle"); // idle, loading, success, error
   const [errors, setErrors] = useState({});
 
   const validate = () => {
+    if (formData._gotcha) return false;
     const newErrors = {};
 
     if (!formData.name || formData.name.trim().length < 2) {
@@ -73,6 +74,7 @@ const Contact = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
           className="text-sys-cyan font-mono text-xs tracking-widest mb-6"
+          aria-hidden="true"
         >
           05 // CONTACT
         </motion.div>
@@ -249,6 +251,18 @@ const Contact = () => {
                   <p className="text-red-400 text-xs mt-1 font-mono">{errors.message}</p>
                 )}
               </div>
+
+              {/* Honeypot spam prevention */}
+              <input
+                type="text"
+                name="_gotcha"
+                value={formData._gotcha}
+                onChange={(e) => setFormData({ ...formData, _gotcha: e.target.value })}
+                style={{ display: "none" }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
 
               {/* Submit button */}
               <div className="mb-6 md:mb-0">

@@ -176,7 +176,7 @@ const Projects = () => {
         >
           <div className="flex items-center gap-3 mb-2">
             <div className="h-px w-12 bg-sys-cyan" />
-            <span className="font-mono text-xs text-sys-cyan tracking-widest uppercase">
+            <span className="font-mono text-xs text-sys-cyan tracking-widest uppercase" aria-hidden="true">
               03 // Work
             </span>
             <div className="h-px flex-1 bg-white/5" />

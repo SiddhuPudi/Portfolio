@@ -27,6 +27,8 @@ const About = () => {
                 src="/Thrivikram.png"
                 alt="Pudi Thrivikram"
                 className="w-full h-full object-cover object-top"
+                loading="lazy"
+                decoding="async"
               />
 
               {/* Scan line overlay for sci-fi feel */}

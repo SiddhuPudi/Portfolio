@@ -6,7 +6,7 @@ import {
   SiMongodb, SiPostgresql, SiMysql, SiGit,
   SiDocker, SiRedis, SiVercel,
   SiThreedotjs, SiFramer, SiJsonwebtokens,
-  SiGithub
+  SiGithub, SiScikitlearn, SiSpacy, SiPandas, SiHuggingface, SiNumpy
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { VscTerminalCmd } from "react-icons/vsc";
@@ -65,10 +65,12 @@ const CATEGORIES = [
     id: "ai",
     label: "AI / NLP",
     skills: [
-      { icon: TbBrain,        name: "TF-IDF",          color: "#8B5CF6" },
-      { icon: FiLayers,       name: "NLP Evaluation",  color: "#06B6D4" },
-      { icon: TbVectorBezier2,name: "Text Processing", color: "#34D399" },
-      { icon: FiFileText,     name: "Document QA",     color: "#F472B6" },
+      { icon: SiScikitlearn,   name: "scikit-learn", color: "#F7931E" },
+      { icon: FiLayers,        name: "NLTK",         color: "#3776AB" },
+      { icon: SiHuggingface,   name: "Hugging Face", color: "#FFD21E" },
+      { icon: SiSpacy,         name: "spaCy",        color: "#09A3D5" },
+      { icon: SiPandas,        name: "Pandas",       color: "#150458" },
+      { icon: SiNumpy,         name: "NumPy",        color: "#4D77CF" },
     ]
   }
 ];
@@ -150,7 +152,7 @@ const Skills = () => {
       <div className="w-full max-w-5xl mb-12">
         <div className="flex items-center gap-3 mb-3">
           <div className="h-px w-12 bg-sys-cyan flex-shrink-0" />
-          <span className="font-mono text-xs text-sys-cyan tracking-widest uppercase whitespace-nowrap">
+          <span className="font-mono text-xs text-sys-cyan tracking-widest uppercase whitespace-nowrap" aria-hidden="true">
             04 // Capabilities
           </span>
           <div className="h-px flex-1 bg-white/5" />
