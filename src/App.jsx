@@ -24,9 +24,20 @@ function App() {
       
       setSection(current);
     };
-    window.addEventListener("scroll", handleScroll);
+    let rafId = null;
+    const throttledScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        handleScroll();
+        rafId = null;
+      });
+    };
+    window.addEventListener("scroll", throttledScroll, { passive: true });
     handleScroll(); // Init
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", throttledScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [loaded]);
 
   return (

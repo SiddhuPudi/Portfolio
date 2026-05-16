@@ -78,3 +78,7 @@ body::-webkit-scrollbar {
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Accessibility: Keyboard navigation focus rings ── */
+:focus-visible { outline: 2px solid #06b6d4; outline-offset: 3px; }
+:focus:not(:focus-visible) { outline: none; }

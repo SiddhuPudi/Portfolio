@@ -7,7 +7,8 @@ const About = () => {
       {/* RIGHT COLUMN — Profile Photo */}
       <motion.div
         initial={{ opacity: 0, x: 40 }}
-        animate={{ opacity: 1, x: 0 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
         className="flex-1 flex items-center justify-center w-full mt-12 md:mt-0 md:order-last"
       >
@@ -61,7 +62,8 @@ const About = () => {
         {/* LEFT COLUMN — Text Content */}
       <motion.div
         initial={{ opacity: 0, x: -40 }}
-        animate={{ opacity: 1, x: 0 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
         className="flex-1 flex items-center w-full md:order-first"
       >
@@ -77,14 +79,16 @@ const About = () => {
           
           <div className="space-y-4 text-gray-400 font-light text-sm md:text-base leading-relaxed">
             <p>
-              I am a product-focused full stack engineer driven by a passion for interactive 
-              UI systems and robust backend architecture. My approach treats every project 
-              not just as code, but as a holistic digital system.
+              I got into CS chasing a simple question — why do some interfaces feel alive
+              while others feel dead? That curiosity pulled me into real-time systems,
+              and eventually into building full-stack products that feel as good under the
+              hood as they look on screen.
             </p>
             <p>
-              From engineering real-time applications with Socket.IO and Docker to 
-              experimenting with AI and NLP models, I build scalable systems that are 
-              both technically powerful and visually immersive.
+              At IIIT Dharwad I&apos;ve gone deep on system design, databases, and distributed
+              architecture — but my favourite projects are the ones sitting at the edge of
+              engineering and craft, like Shinsei Keikaku (a gamified productivity system)
+              and Talent Sync (a real-time hiring platform built on Kafka and Socket.IO).
             </p>
           </div>
 

@@ -42,6 +42,18 @@ const CustomCursor = () => {
       ring.style.opacity = "1";
     };
 
+    const onKeyDown = (e) => {
+      if (e.key === "Tab") {
+        dot.style.opacity = "0";
+        ring.style.opacity = "0";
+      }
+    };
+
+    const onMouseMove_show = () => {
+      dot.style.opacity = "1";
+      ring.style.opacity = "1";
+    };
+
     /* ── Hover detection for interactive elements ── */
     const onMouseOver = (e) => {
       const el = e.target.closest("a, button, [role='button'], input, textarea, select, [data-cursor-hover]");
@@ -74,6 +86,8 @@ const CustomCursor = () => {
     };
 
     window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("mousemove", onMouseMove_show);
     document.addEventListener("mouseleave", onMouseLeave);
     document.addEventListener("mouseenter", onMouseEnter);
     document.addEventListener("mouseover", onMouseOver);
@@ -82,6 +96,8 @@ const CustomCursor = () => {
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("mousemove", onMouseMove_show);
       document.removeEventListener("mouseleave", onMouseLeave);
       document.removeEventListener("mouseenter", onMouseEnter);
       document.removeEventListener("mouseover", onMouseOver);
