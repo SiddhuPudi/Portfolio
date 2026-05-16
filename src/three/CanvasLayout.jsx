@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
+import { PerformanceMonitor } from "@react-three/drei";
 import Scene from "./Scene";
 import CanvasErrorBoundary from "../components/CanvasErrorBoundary";
 import { useTheme } from "../context/ThemeContext";
@@ -6,6 +8,7 @@ import { useTheme } from "../context/ThemeContext";
 const CanvasLayout = ({ section }) => {
   const { theme } = useTheme();
   const bgColor = theme === 'dark' ? '#050505' : '#f8f7f4';
+  const [perfDegraded, setPerfDegraded] = useState(false);
 
   // GPU capability check — bail out on devices without WebGL
   const testCanvas = document.createElement("canvas");
@@ -29,9 +32,14 @@ const CanvasLayout = ({ section }) => {
       <div className="fixed top-0 left-0 w-full h-screen z-0 transition-colors duration-300" style={{ backgroundColor: bgColor }} role="img" aria-label="Decorative 3D background animation" aria-hidden="true">
         <Canvas camera={{ position: [0, 0, 8], fov: 45 }} role="img" aria-label="Interactive 3D background scene that responds to scroll position">
           <color attach="background" args={[bgColor]} />
-          {/* Cinematic Fog */}
-          <fog attach="fog" args={[bgColor, 5, 20]} />
-          <Scene section={section} />
+          <PerformanceMonitor
+            onDecline={() => setPerfDegraded(true)}
+            onIncline={() => setPerfDegraded(false)}
+            flipflops={3}
+            threshold={0.9}
+          >
+            <Scene section={section} lowPerf={perfDegraded} bgColor={bgColor} />
+          </PerformanceMonitor>
         </Canvas>
       </div>
     </CanvasErrorBoundary>

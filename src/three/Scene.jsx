@@ -6,7 +6,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useRef } from "react";
 
-const Scene = ({ section }) => {
+const Scene = ({ section, lowPerf = false, bgColor = '#050505' }) => {
   const dirLightRef = useRef();
   const pointLightRef = useRef();
   const ambientRef = useRef();
@@ -59,6 +59,9 @@ const Scene = ({ section }) => {
 
   return (
     <>
+      {/* Cinematic Fog — disabled in low-perf mode */}
+      {!lowPerf && <fog attach="fog" args={[bgColor, 5, 20]} />}
+
       <CameraRig section={section} />
 
       {/* Dynamic Lighting System */}
@@ -72,8 +75,8 @@ const Scene = ({ section }) => {
       {/* LAYER 2: MIDGROUND (Active geometry reacting to sections) */}
       <Midground section={section} />
 
-      {/* LAYER 1: FOREGROUND (Dust, particles, immediate depth) */}
-      <ForegroundDepth section={section} />
+      {/* LAYER 1: FOREGROUND (Dust, particles, immediate depth) — disabled in low-perf mode */}
+      {!lowPerf && <ForegroundDepth section={section} />}
     </>
   );
 };
