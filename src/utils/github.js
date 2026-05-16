@@ -1,6 +1,8 @@
+import { siteConfig } from "../data/config";
+
 export const fetchRepos = async() => {
     const res = await fetch(
-        "https://api.github.com/users/SiddhuPudi/repos"
+        `https://api.github.com/users/${siteConfig.githubUsername}/repos`
     );
 
     if(!res.ok) {

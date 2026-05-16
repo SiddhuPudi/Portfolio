@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Code, ExternalLink, ArrowUpRight, Maximize2, X } from "lucide-react";
 import { featuredProjects, projectMeta } from "../data/projects";
 import { fetchRepos } from "../utils/github";
+import { siteConfig } from "../data/config";
 
 /* Inline GitHub SVG — lucide-react v1.x removed brand icons */
 const GithubIcon = ({ size = 15, className }) => (
@@ -192,7 +193,7 @@ const Projects = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          href="https://github.com/SiddhuPudi?tab=repositories"
+          href={`${siteConfig.socials.github}?tab=repositories`}
           target="_blank"
           rel="noreferrer"
           aria-label="View all repositories on GitHub"
@@ -385,7 +386,7 @@ const Projects = () => {
       {/* Mobile repos link */}
       <div className="w-full max-w-6xl mt-4 md:hidden">
         <a
-          href="https://github.com/SiddhuPudi?tab=repositories"
+          href={`${siteConfig.socials.github}?tab=repositories`}
           target="_blank"
           rel="noreferrer"
           aria-label="View all repositories on GitHub"

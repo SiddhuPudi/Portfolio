@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { fadeUp, fadeIn, staggerContainerSlow } from "../animations/variants";
 import MagneticButton from "../components/MagneticButton";
+import { siteConfig } from "../data/config";
 const Hero = () => {
   const scrollToProjects = () => {
     // Projects section is at index 2 of 6 (0‑5). Each occupies full viewport height.
@@ -29,7 +30,7 @@ const Hero = () => {
         >
           <span className="h-px w-10 bg-sys-cyan" />
           <span className="text-sys-cyan text-[11px] font-mono tracking-[0.35em] uppercase">
-            Full Stack Systems Engineer
+            {siteConfig.role}
           </span>
           <span className="h-px w-10 bg-sys-cyan md:hidden" />
         </motion.div>
@@ -68,8 +69,8 @@ const Hero = () => {
             View Projects →
           </MagneticButton>
           <MagneticButton
-            href="/PUDI_THRIVIKRAM.pdf"
-            download="Pudi_Thrivikram_Resume.pdf"
+            href={siteConfig.resumeUrl}
+            download={siteConfig.resumeDownloadName}
             aria-label="Download resume PDF"
             className="w-full md:w-auto border border-white/15 text-white/80 font-mono text-xs px-8 py-4 md:py-3.5 rounded-full hover:border-white/40 hover:text-white transition-all duration-300 tracking-wider uppercase block text-center min-h-[44px]"
           >
@@ -86,20 +87,21 @@ const Hero = () => {
         transition={{ delay: 1.2 }}
         className="absolute bottom-8 right-0 left-0 justify-center md:left-auto md:right-24 flex items-center gap-4 sm:gap-8 scale-75 sm:scale-100 md:scale-100"
       >
-        <div className="text-right md:text-right">
-          <div className="text-2xl font-light text-white tracking-tight">5+</div>
-          <div className="font-mono text-[10px] text-gray-600 tracking-widest mt-0.5 uppercase">Projects</div>
-        </div>
-        <div className="h-6 w-px bg-white/10" />
-        <div className="text-center md:text-right">
-          <div className="text-2xl font-light text-white tracking-tight">2+</div>
-          <div className="font-mono text-[10px] text-gray-600 tracking-widest mt-0.5 uppercase">Years Coding</div>
-        </div>
-        <div className="h-6 w-px bg-white/10" />
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-          <span className="font-mono text-[10px] text-gray-600 uppercase tracking-wider">Open to Work</span>
-        </div>
+        {siteConfig.stats.map((s, i) => (
+          <div key={s.label} className="flex items-center gap-4 sm:gap-8">
+            <div className={i === 0 ? "text-right md:text-right" : "text-center md:text-right"}>
+              <div className="text-2xl font-light text-white tracking-tight">{s.value}</div>
+              <div className="font-mono text-[10px] text-gray-600 tracking-widest mt-0.5 uppercase">{s.label}</div>
+            </div>
+            <div className="h-6 w-px bg-white/10" />
+          </div>
+        ))}
+        {siteConfig.openToWork && (
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+            <span className="font-mono text-[10px] text-gray-600 uppercase tracking-wider">Open to Work</span>
+          </div>
+        )}
       </motion.div>
     </section>
   );

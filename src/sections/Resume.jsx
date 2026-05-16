@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GraduationCap, BookOpen, ExternalLink, Download } from "lucide-react";
 import { SiLeetcode, SiCodechef } from "react-icons/si";
+import { siteConfig } from "../data/config";
 
 const TABS = [
   { id: "academic",  label: "Academic Journey",  icon: GraduationCap },
@@ -210,8 +211,8 @@ const Resume = () => {
                   Acquire the complete technical specifications, work history, and educational background.
                 </p>
                 <motion.a
-                  href="/PUDI_THRIVIKRAM.pdf"
-                  download="Pudi_Thrivikram_Resume.pdf"
+                  href={siteConfig.resumeUrl}
+                  download={siteConfig.resumeDownloadName}
                   aria-label="Download resume PDF"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
