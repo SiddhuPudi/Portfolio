@@ -24,13 +24,20 @@ const About = () => {
             {/* Photo container — aspect-[3/4] so it scales with column width */}
             <div className="relative w-64 md:w-full aspect-[3/4] max-w-xs rounded-2xl overflow-hidden bg-black mx-auto">
 
-              <img
-                src="/Thrivikram.png"
-                alt="Pudi Thrivikram"
-                className="w-full h-full object-cover object-top"
-                loading="lazy"
-                decoding="async"
-              />
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet="/Thrivikram-400.webp 400w, /Thrivikram-800.webp 800w, /Thrivikram.webp 1200w"
+                  sizes="(max-width: 768px) 256px, 320px"
+                />
+                <img
+                  src="/Thrivikram.png"
+                  alt="Pudi Thrivikram"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover object-top"
+                />
+              </picture>
 
               {/* Scan line overlay for sci-fi feel */}
               <div
