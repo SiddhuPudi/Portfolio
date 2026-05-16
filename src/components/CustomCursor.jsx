@@ -24,6 +24,8 @@ const CustomCursor = () => {
     const ring = ringRef.current;
     if (!dot || !ring) return;
 
+    document.body.classList.add('custom-cursor-active');
+
     /* ── Mouse tracking ── */
     const onMouseMove = (e) => {
       target.current.x = e.clientX;
@@ -95,6 +97,7 @@ const CustomCursor = () => {
     rafId.current = requestAnimationFrame(animate);
 
     return () => {
+      document.body.classList.remove('custom-cursor-active');
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("mousemove", onMouseMove_show);
