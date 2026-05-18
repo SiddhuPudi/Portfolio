@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, Mail, Phone } from "lucide-react";
 import { siteConfig } from "../data/config";
@@ -22,6 +22,15 @@ const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "", _gotcha: "" });
   const [status, setStatus] = useState("idle"); // idle, loading, success, error
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    if (status !== "success") return;
+    const t = setTimeout(() => {
+      setStatus("idle");
+      setFormData({ name: "", email: "", message: "", _gotcha: "" });
+    }, 5000);
+    return () => clearTimeout(t);
+  }, [status]);
 
   const validate = () => {
     if (formData._gotcha) return false;
@@ -66,7 +75,7 @@ const Contact = () => {
   };
 
   return (
-    <section role="region" aria-label="Contact information" className="w-full h-auto min-h-screen overflow-y-auto pb-20 snap-none md:snap-start flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-center justify-center px-4 sm:px-8 md:px-10 lg:px-16 py-16 md:overflow-visible">
+    <section role="region" aria-label="Contact information" className="relative w-full h-auto min-h-screen overflow-y-auto pb-20 snap-none md:snap-start flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 items-center justify-center px-4 sm:px-8 md:px-10 lg:px-16 py-16 md:overflow-visible">
       <div className="w-full flex flex-col md:flex-row md:items-center md:justify-center md:h-full md:max-h-none md:overflow-visible max-h-[70vh] overflow-y-auto">
         {/* LEFT COLUMN */}
       <div className="w-full pb-6 md:pb-0 md:w-2/5">
@@ -238,6 +247,7 @@ const Contact = () => {
               {/* Message */}
               <div className="mt-0 md:mt-6 mb-4 md:mb-0">
                 <textarea
+                  maxLength={500}
                   rows={4}
                   aria-label="Your message"
                   placeholder="Message"
@@ -248,9 +258,14 @@ const Contact = () => {
                   }}
                   className="w-full bg-transparent border border-white/10 md:border-t-0 md:border-l-0 md:border-r-0 md:border-b p-3 md:py-4 md:px-0 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-sys-cyan/50 rounded-lg md:rounded-none transition-colors duration-300 resize-none min-h-[120px]"
                 />
-                {errors.message && (
-                  <p className="text-red-400 text-xs mt-1 font-mono">{errors.message}</p>
-                )}
+                <div className="flex justify-between mt-1">
+                  {errors.message && (
+                    <span className="text-red-400 font-mono text-xs">{errors.message}</span>
+                  )}
+                  <span className={`font-mono text-xs ml-auto ${formData.message.length > 480 ? "text-red-400" : "text-gray-600"}`}>
+                    {formData.message.length}/500
+                  </span>
+                </div>
               </div>
 
               {/* Honeypot spam prevention */}
@@ -270,7 +285,7 @@ const Contact = () => {
                 <button
                   aria-label="Send message"
                   type="submit"
-                  disabled={status === "loading"}
+                  disabled={status === "loading" || status === "success"}
                   className="w-full mt-6 md:mt-10 py-3 md:py-4 rounded-full bg-white text-black font-mono text-sm font-bold tracking-widest uppercase hover:bg-sys-cyan transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                 >
                   {status === "loading" ? (
@@ -289,6 +304,26 @@ const Contact = () => {
             </motion.form>
           )}
         </AnimatePresence>
+        </div>
+      </div>
+
+      <div className="absolute bottom-4 md:bottom-6 left-0 right-0 flex justify-center px-4 z-10">
+        <div className="font-mono text-[9px] sm:text-[10px] text-gray-700 tracking-wider flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 text-center">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span>© {new Date().getFullYear()} Pudi Thrivikram</span>
+            <span className="text-gray-800">·</span>
+            <a
+              href="https://github.com/SiddhuPudi/Portfolio"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-sys-cyan transition-colors duration-200"
+              aria-label="View portfolio source code on GitHub"
+            >
+              View Source
+            </a>
+          </div>
+          <span className="hidden sm:inline text-gray-800">·</span>
+          <span className="mt-0.5 sm:mt-0">Designed & Built by Thrivikram</span>
         </div>
       </div>
     </section>

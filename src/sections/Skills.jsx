@@ -82,7 +82,8 @@ const SkillPill = ({ skill, delay }) => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.4, rotate: -8 }}
-      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+      whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+      viewport={{ once: true }}
       transition={{ delay, type: "spring", stiffness: 280, damping: 18 }}
       className="relative flex flex-col items-center w-full sm:w-auto"
       onMouseEnter={() => setShowTip(true)}
@@ -172,7 +173,8 @@ const Skills = () => {
               {/* Category label with side line */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.4, delay: ci * 0.07 }}
                 className="flex items-center gap-3 mb-6"
               >
