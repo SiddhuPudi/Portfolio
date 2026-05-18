@@ -141,11 +141,23 @@ const Resume = () => {
                     <SiLeetcode size={22} color="#FFA116" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-1">
-                      <h4 className="text-white font-bold text-sm">LeetCode</h4>
+                    <div className="flex items-center mb-2">
+                      <div>
+                        <h4 className="text-white font-bold text-sm">LeetCode</h4>
+                        <p className="font-mono text-xs text-[#FFA116]/70">@siddhu_pudi</p>
+                      </div>
+                      <div className="flex gap-3 flex-wrap ml-auto mr-4">
+                        {[
+                          { label: "Contest Rating", value: "1491" },
+                        ].map(({ label, value }) => (
+                          <div key={label} className="bg-[#FFA116]/5 border border-[#FFA116]/15 rounded-lg px-3 py-1.5 text-center">
+                            <div className="font-mono text-sm font-bold text-[#FFA116]">{value}</div>
+                            <div className="font-mono text-[9px] text-gray-600 uppercase tracking-wider mt-0.5">{label}</div>
+                          </div>
+                        ))}
+                      </div>
                       <ExternalLink size={12} className="text-gray-600 group-hover:text-[#FFA116] transition-colors duration-300" />
                     </div>
-                    <p className="font-mono text-xs text-[#FFA116]/70 mb-2">@siddhu_pudi</p>
                     <p className="text-gray-500 text-xs font-light leading-relaxed">
                       Algorithmic problem solving — DSA, dynamic programming, and competitive challenges.
                     </p>
@@ -169,11 +181,23 @@ const Resume = () => {
                       : <span className="text-[#CE5C2B] font-bold text-sm">CC</span>}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-1">
-                      <h4 className="text-white font-bold text-sm">CodeChef</h4>
+                    <div className="flex items-center mb-2">
+                      <div>
+                        <h4 className="text-white font-bold text-sm">CodeChef</h4>
+                        <p className="font-mono text-xs text-[#CE5C2B]/70">@siddhu_pudi</p>
+                      </div>
+                      <div className="flex gap-3 flex-wrap ml-auto mr-4">
+                        {[
+                          { label: "Contest Rating", value: "1424" },
+                        ].map(({ label, value }) => (
+                          <div key={label} className="bg-[#CE5C2B]/5 border border-[#CE5C2B]/15 rounded-lg px-3 py-1.5 text-center">
+                            <div className="font-mono text-sm font-bold text-[#CE5C2B]">{value}</div>
+                            <div className="font-mono text-[9px] text-gray-600 uppercase tracking-wider mt-0.5">{label}</div>
+                          </div>
+                        ))}
+                      </div>
                       <ExternalLink size={12} className="text-gray-600 group-hover:text-[#CE5C2B] transition-colors duration-300" />
                     </div>
-                    <p className="font-mono text-xs text-[#CE5C2B]/70 mb-2">@siddhu_pudi</p>
                     <p className="text-gray-500 text-xs font-light leading-relaxed">
                       Competitive programming contests and rating improvement.
                     </p>
