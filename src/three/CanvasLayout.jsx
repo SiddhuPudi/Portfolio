@@ -3,12 +3,10 @@ import { Canvas } from "@react-three/fiber";
 import { PerformanceMonitor } from "@react-three/drei";
 import Scene from "./Scene";
 import CanvasErrorBoundary from "../components/CanvasErrorBoundary";
-import { useTheme } from "../context/ThemeContext";
 import PropTypes from "prop-types";
 
 const CanvasLayout = ({ section }) => {
-  const { theme } = useTheme();
-  const bgColor = theme === 'dark' ? '#050505' : '#f8f7f4';
+  const bgColor = '#050505';
   const [perfDegraded, setPerfDegraded] = useState(false);
 
   // GPU capability check — bail out on devices without WebGL
@@ -24,7 +22,7 @@ const CanvasLayout = ({ section }) => {
 
   if (isLowEnd) {
     return (
-      <div className={`fixed inset-0 ${theme === 'dark' ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-[#f8f7f4]'}`} />
+      <div className="fixed inset-0 bg-gradient-to-br from-gray-950 to-black" />
     );
   }
 

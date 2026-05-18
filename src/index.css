@@ -13,14 +13,6 @@
   --neon-opacity: 1;
 }
 
-html.light {
-  --sys-bg: #f8f7f4;
-  --sys-text: #1a1a1a;
-  --panel-bg: rgba(255, 255, 255, 0.6);
-  --panel-border: rgba(0, 0, 0, 0.1);
-  --panel-shadow: rgba(0, 0, 0, 0.05);
-  --neon-opacity: 0.6;
-}
 
 .custom-cursor-active * {
   cursor: none !important;
