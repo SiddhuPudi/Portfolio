@@ -166,7 +166,7 @@ const Projects = () => {
   };
 
   return (
-    <section role="region" aria-label="Selected projects" className="w-full min-h-screen md:min-h-0 md:h-full flex flex-col items-center justify-center px-4 sm:px-10 md:px-20 py-10 overflow-visible md:overflow-y-auto">
+    <section role="region" aria-label="Selected projects" className="w-full min-h-screen md:min-h-0 md:h-screen flex flex-col items-center justify-start md:justify-center px-4 sm:px-10 md:px-20 py-10 overflow-y-auto md:overflow-y-auto">
 
       {/* ── HEADER ── */}
       <div className="w-full max-w-6xl mb-8 flex items-end justify-between px-2 md:px-0">
@@ -215,7 +215,7 @@ const Projects = () => {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col md:flex-row gap-6 md:gap-4 w-full max-w-6xl overflow-y-auto md:overflow-y-visible max-h-[75vh] md:max-h-none md:overflow-x-auto pb-4 hide-scrollbar px-2 md:px-0">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-4 w-full max-w-6xl max-h-[75vh] overflow-y-auto md:h-[520px] md:max-h-none md:overflow-x-auto pb-4 hide-scrollbar px-2 md:px-0">
           {projects.map((p, i) => {
             const isActive = i === activeIndex;
             const colors = getColors(i);
@@ -243,8 +243,8 @@ const Projects = () => {
                 className={
                   `relative rounded-2xl cursor-pointer flex md:flex-col justify-between flex-shrink-0 transition-colors duration-500 overflow-visible md:overflow-hidden ` +
                   (isActive
-                    ? `w-full md:w-[360px] flex-col min-h-[420px] p-6 pb-6 md:p-8 md:pb-8 bg-gradient-to-br ${colors.gradient} text-white`
-                    : `w-full md:w-[130px] flex-row md:flex-col h-20 md:h-auto md:min-h-[420px] p-4 pb-6 md:p-6 md:pb-6 bg-white/[0.03] border border-white/10 text-gray-400 hover:bg-white/[0.05] items-center md:items-start`)
+                    ? `w-full md:w-[400px] flex-col h-auto min-h-[420px] md:h-full p-6 pb-6 md:p-8 md:pb-8 bg-gradient-to-br ${colors.gradient} text-white`
+                    : `w-full md:w-[180px] flex-row md:flex-col h-20 md:h-full p-4 pb-6 md:p-6 md:pb-6 bg-white/[0.03] border border-white/10 text-gray-400 hover:bg-white/[0.05] items-center md:items-start`)
                 }
                 transition={{ layout: { duration: 0.45, ease: [0.25, 1, 0.5, 1] } }}
                 whileHover={{ scale: isActive ? 1 : 1.02 }}
@@ -271,7 +271,7 @@ const Projects = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.15, duration: 0.3 }}
-                    className="relative z-10 mt-2 flex-1 flex flex-col"
+                    className="relative z-10 mt-2 flex-1 flex flex-col overflow-visible md:overflow-y-auto hide-scrollbar"
                   >
                     {/* Category badge */}
                     <span className="self-start font-mono text-[10px] tracking-[0.2em] uppercase text-white/50 border border-white/20 px-3 py-1 rounded-full mb-4">
@@ -325,7 +325,7 @@ const Projects = () => {
                       </div>
 
                       {/* Bottom row: links + Details button */}
-                      <div className="flex items-center justify-between mt-2">
+                      <div className="flex items-center justify-between mt-auto pt-4">
                         <div className="flex gap-2">
                           {p.html_url && (
                             <a

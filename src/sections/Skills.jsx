@@ -147,7 +147,7 @@ const Skills = () => {
   let delayCounter = 0;
 
   return (
-    <section role="region" aria-label="Skills and technologies" className="w-full h-auto min-h-screen flex flex-col justify-center items-center px-4 sm:px-8 md:px-16 py-10 overflow-y-auto hide-scrollbar">
+    <section role="region" aria-label="Skills and technologies" className="w-full h-auto min-h-screen md:h-screen md:overflow-y-auto flex flex-col justify-center items-center px-4 sm:px-8 md:px-16 py-10 overflow-y-auto hide-scrollbar">
 
       {/* Header — full width centered */}
       <div className="w-full max-w-5xl mb-12">
@@ -165,7 +165,7 @@ const Skills = () => {
       </div>
 
       {/* All categories — full width, generous spacing */}
-      <div className="w-full max-w-5xl flex flex-col gap-12 max-h-[70vh] overflow-y-auto md:max-h-none md:overflow-visible pr-2 md:pr-0">
+      <div className="w-full max-w-5xl flex flex-col gap-12 max-h-[70vh] overflow-y-auto md:max-h-[65vh] md:overflow-y-auto pr-2 md:pr-0">
         {CATEGORIES.map((cat, ci) => {
           return (
             <div key={cat.id}>
