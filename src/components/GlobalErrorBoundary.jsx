@@ -10,6 +10,13 @@ export class GlobalErrorBoundary extends Component {
     return { hasError: true, error };
   }
 
+  componentDidCatch(error, info) {
+    // Log the error for debugging — swap with Sentry/LogRocket in production:
+    // Sentry.captureException(error, { extra: { componentStack: info.componentStack } });
+    console.error("[GlobalErrorBoundary] Uncaught error:", error);
+    console.error("[GlobalErrorBoundary] Component stack:", info.componentStack);
+  }
+
   render() {
     if (this.state.hasError) {
       return (

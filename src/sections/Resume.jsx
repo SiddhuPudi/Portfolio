@@ -3,10 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { GraduationCap, BookOpen, ExternalLink, Download } from "lucide-react";
 import { SiLeetcode, SiCodechef } from "react-icons/si";
 import { siteConfig } from "../data/config";
+import GithubIcon from "../components/icons/GithubIcon";
 
 const TABS = [
   { id: "academic",  label: "Academic Journey",  icon: GraduationCap },
   { id: "coding",    label: "Coding Profiles",    icon: ExternalLink   },
+  { id: "github",    label: "GitHub",             icon: GithubIcon     },
   { id: "resume",    label: "Resume",             icon: Download       },
 ];
 
@@ -204,6 +206,87 @@ const Resume = () => {
                   </div>
                 </motion.a>
               </div>
+            </motion.div>
+          )}
+
+          {/* GITHUB CONTRIBUTIONS */}
+          {active === "github" && (
+            <motion.div
+              key="github"
+              custom={dir}
+              variants={panelVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="h-px w-8 bg-emerald-400 flex-shrink-0" />
+                <span className="font-mono text-[10px] text-emerald-400 tracking-[0.25em] uppercase">Open Source</span>
+              </div>
+              <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-8">
+                GitHub <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">Activity</span>
+              </h3>
+
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="glass-panel rounded-2xl p-6 border border-white/[0.06] hover:border-emerald-400/20 transition-all duration-300"
+              >
+                {/* Contribution Graph with scroll hint */}
+                <div className="relative w-full rounded-xl">
+                  <div className="w-full overflow-x-auto hide-scrollbar rounded-xl">
+                    <img
+                      src={`https://ghchart.rshah.org/40c463/${siteConfig.githubUsername}?d=${new Date().toISOString().slice(0, 10)}`}
+                      alt={`GitHub contribution graph for ${siteConfig.githubUsername} showing daily commit activity over the past year`}
+                      className="w-full min-w-[680px] h-auto rounded-xl bg-white/[0.02]"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextElementSibling && (e.target.nextElementSibling.style.display = 'flex');
+                      }}
+                    />
+                    {/* Fallback shown on error */}
+                    <div className="hidden items-center justify-center h-24 rounded-xl border border-white/[0.06] bg-white/[0.02]">
+                      <p className="font-mono text-xs text-gray-600">Contribution graph unavailable — visit GitHub directly</p>
+                    </div>
+                  </div>
+                  {/* Mobile scroll hint — right-edge gradient fade */}
+                  <div className="absolute top-0 right-0 w-8 h-full bg-gradient-to-l from-[#0a0a0a] to-transparent rounded-r-xl pointer-events-none md:hidden" />
+                </div>
+
+                {/* Quick stats row */}
+                <div className="flex gap-3 mt-5 flex-wrap">
+                  {[
+                    { label: "Repositories", value: "10+" },
+                    { label: "This Year", value: "200+" , sub: "contributions" },
+                    { label: "Top Language", value: "JavaScript" },
+                  ].map(({ label, value }) => (
+                    <div key={label} className="flex-1 min-w-[100px] bg-emerald-400/5 border border-emerald-400/10 rounded-lg px-3 py-2.5 text-center">
+                      <div className="font-mono text-sm font-bold text-emerald-400">{value}</div>
+                      <div className="font-mono text-[9px] text-gray-600 uppercase tracking-wider mt-0.5">{label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Caption row */}
+                <div className="flex items-center justify-between mt-5 pt-4 border-t border-white/[0.06]">
+                  <div>
+                    <p className="text-white font-bold text-sm">{siteConfig.githubUsername}</p>
+                    <p className="font-mono text-xs text-gray-500 mt-0.5">Contribution activity over the past year</p>
+                  </div>
+                  <a
+                    href={siteConfig.socials.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Visit ${siteConfig.githubUsername}'s GitHub profile`}
+                    className="flex items-center gap-2 font-mono text-xs text-gray-500 hover:text-emerald-400 border border-white/10 hover:border-emerald-400/30 bg-white/[0.03] hover:bg-emerald-400/5 px-4 py-2 rounded-full transition-all duration-300"
+                  >
+                    <GithubIcon size={14} />
+                    <span className="hidden sm:inline">View Profile</span>
+                  </a>
+                </div>
+              </motion.div>
             </motion.div>
           )}
 
