@@ -75,7 +75,8 @@ const Contact = () => {
       <div className="w-full pb-6 md:pb-0 md:w-2/5">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.1, duration: 0.6 }}
           className="text-sys-cyan font-mono text-xs tracking-widest mb-6"
           aria-hidden="true"
@@ -85,7 +86,8 @@ const Contact = () => {
 
         <motion.h1
           initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.25, duration: 0.6 }}
           className="text-2xl sm:text-4xl md:text-6xl font-bold text-white leading-tight"
         >
@@ -93,7 +95,8 @@ const Contact = () => {
         </motion.h1>
         <motion.h1
           initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.6 }}
           className="text-2xl sm:text-4xl md:text-6xl font-bold text-white leading-tight"
         >
@@ -101,7 +104,8 @@ const Contact = () => {
         </motion.h1>
         <motion.h1
           initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.55, duration: 0.6 }}
           className="text-2xl sm:text-4xl md:text-6xl font-bold text-sys-cyan leading-tight"
         >
