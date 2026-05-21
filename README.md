@@ -30,14 +30,16 @@ The UI language leans into a **modern, editorial sci-fi aesthetic**, featuring g
 
 ## ✨ Features
 
-- 🧊 **Persistent 3D Canvas:** A background 3D scene built with Three.js and `@react-three/fiber` that dynamically shifts camera angles based on the user's scroll progression. Includes **Suspense fallback, ErrorBoundary**, and **GPU compatibility checks** for robust rendering.
+- 🧊 **Persistent 3D Canvas:** A background 3D scene built with Three.js and `@react-three/fiber` that dynamically shifts camera angles based on scroll progression.
+- ⚡ **Performance-Based Rendering:** Integrates `PerformanceMonitor` to dynamically scale down rendering properties (like conditionally disabling complex fog and foreground particles) on lower-end devices to guarantee a consistent 60fps experience.
+- 🛠️ **Centralized Configuration:** Configured completely from a single config file for fast updates to personal stats, links, resume settings, and copy.
+- 🛡️ **Robust Error Boundaries:** Wraps critical entry points with a terminal-themed `GlobalErrorBoundary` to capture runtime failures and provide user-friendly system recovery layouts.
+- 📊 **GitHub Activity Integration:** Embeds a real-time GitHub contribution graph mapping commits over the past year. Includes optimized session-based caching (`sessionStorage`) with a 10-minute TTL to respect GitHub API rate limits.
 - 🎬 **Cinematic Animations:** Fluid entrance, exit, and layout animations powered by **Framer Motion**. Enhanced with **Magnetic Buttons**, a **Scroll Progress Indicator**, and a **Back-to-Top Button**.
-- 📱 **100% Responsive Design:** Implements proportional 50/50 split layouts on desktop that gracefully collapse into stacked mobile views. Features a dedicated **Mobile Navigation Menu** for seamless smaller-screen browsing.
-- 🛸 **Custom Neon Cursor:** A highly optimized global custom cursor featuring an instant-follow neon core and a smoothly trailing `requestAnimationFrame` outer ring that reacts to interactive elements.
-- 🚀 **Performance & SEO Optimized:** Uses Vite for lightning-fast HMR. The 3D canvas is **lazy-loaded**. Comprehensive **SEO metadata**, including Canonical URLs, Open Graph, and Twitter Cards are implemented.
+- 📱 **100% Responsive Design:** Implements proportional 50/50 split layouts on desktop that gracefully collapse into stacked mobile views. Features a dedicated **Mobile Navigation Menu** and touch-optimized gestures.
+- 🛸 **Custom Neon Cursor:** A highly optimized global custom cursor featuring an instant-follow neon core and a smoothly trailing outer ring that hides the native browser cursor to avoid visual overlap.
+- 📬 **Interactive Contact Form:** Integrated with Formspree for serverless, secure email handling, upgraded with a live message **character counter** and auto-reset states.
 - ♿ **Web Accessibility:** Improved accessibility with extensive **ARIA labels, keyboard navigation support**, and respect for **reduced motion** preferences.
-- 📬 **Live Contact Form:** Integrated with Formspree for serverless, secure email handling directly from the frontend, with **robust validation and user feedback**.
-- 🧪 **Testing Suite:** Integrated **Vitest** for component smoke testing and data validation.
 
 ---
 
@@ -100,23 +102,29 @@ To get a local copy up and running, follow these simple steps.
 ├── public/                 # Static assets (Resume PDF, Images, 3D Models)
 ├── src/
 │   ├── components/         # Reusable UI components
-│   │   ├── layout/         # Core layout wrappers (Overlay, Preloader, SectionNav)
-│   │   └── CustomCursor.jsx# Global custom cursor logic
-│   ├── data/               # Local JSON/JS data 
+│   │   ├── layout/         # Core layout wrappers (Overlay.jsx, Preloader.jsx, SectionNav.jsx)
+│   │   ├── icons/          # Centralized icon modules (GithubIcon.jsx)
+│   │   ├── CustomCursor.jsx# Global custom cursor logic
+│   │   └── GlobalErrorBoundary.jsx # Catch-all runtime error boundaries
+│   ├── data/               # Local JSON/JS data configurations
+│   │   ├── config.js       # Centralized personal site configuration
 │   │   └── projects.js     # Project portfolio registry
 │   ├── sections/           # Modular viewport sections
-│   │   ├── Hero.jsx        # Introduction & CTAs
+│   │   ├── Hero.jsx        # Introduction, stats, and CTAs
 │   │   ├── About.jsx       # Bio and photo split layout
 │   │   ├── Projects.jsx    # Horizontal animated project carousel
 │   │   ├── Skills.jsx      # Categorized tech-stack icon grid
-│   │   ├── Resume.jsx      # Academic journey & competitive programming
-│   │   └── Contact.jsx     # Social grid and email form
+│   │   ├── Resume.jsx      # Academic journey, CP profiles & GitHub activity
+│   │   └── Contact.jsx     # Social grid, contact form with char counter & footer
 │   ├── three/              # WebGL / Three.js logic
-│   │   ├── CanvasLayout.jsx# R3F Canvas setup
-│   │   └── CameraRig.jsx   # Scroll-based camera interpolation
+│   │   ├── CanvasLayout.jsx# R3F Canvas with PerformanceMonitor optimization
+│   │   ├── CameraRig.jsx   # Scroll-based camera interpolation
+│   │   └── Scene.jsx       # R3F Scene elements (particles, fog, lights)
+│   ├── utils/              # Helper utilities
+│   │   └── github.js       # GitHub API integration with session caching
 │   ├── App.jsx             # Main application orchestrator
 │   ├── index.css           # Global Tailwind & Custom CSS tokens
-│   └── main.jsx            # React root entry point
+│   └── main.jsx            # React root entry point with GlobalErrorBoundary
 ├── tailwind.config.js      # Tailwind theme extensions & custom colors
 ├── vite.config.js          # Vite configuration
 └── package.json            # Project metadata and scripts
@@ -126,15 +134,39 @@ To get a local copy up and running, follow these simple steps.
 
 ## ⚙️ Configuration
 
+### Centralized Website Configuration
+To customize your personal details, profile image names, resume download paths, social handles, or email statistics, update [src/data/config.js](file:///Users/thrivikrampudi/Downloads/Portfolio-3D/src/data/config.js). The data is dynamically propagated to components like the [Hero](file:///Users/thrivikrampudi/Downloads/Portfolio-3D/src/sections/Hero.jsx), [Resume](file:///Users/thrivikrampudi/Downloads/Portfolio-3D/src/sections/Resume.jsx), and [Contact](file:///Users/thrivikrampudi/Downloads/Portfolio-3D/src/sections/Contact.jsx) forms:
+
+```javascript
+export const siteConfig = {
+  name: "Pudi Thrivikram",
+  role: "Full Stack Systems Engineer",
+  resumeUrl: "/PUDI_THRIVIKRAM.pdf",
+  resumeDownloadName: "Pudi_Thrivikram_Resume.pdf",
+  stats: [
+    { value: "5+", label: "Projects" },
+    { value: "2+", label: "Years Coding" },
+  ],
+  openToWork: true,
+  socials: {
+    github: "https://github.com/SiddhuPudi",
+    linkedin: "https://linkedin.com/in/pudithrivikram",
+    instagram: "https://www.instagram.com/siddhu_pudi",
+  },
+  githubUsername: "SiddhuPudi",
+  email: "work.with.thrivikram@gmail.com",
+  phone: "+91 93901 71829",
+};
+```
+
 ### Updating Projects
-To add or modify portfolio projects, edit the registry in `src/data/projects.js`. The `Projects.jsx` carousel will automatically scale to accommodate new entries.
+To add or modify portfolio projects, edit the registry in [src/data/projects.js](file:///Users/thrivikrampudi/Downloads/Portfolio-3D/src/data/projects.js). The [Projects.jsx](file:///Users/thrivikrampudi/Downloads/Portfolio-3D/src/sections/Projects.jsx) carousel will automatically scale to accommodate new entries.
 
 ### Configuring the Contact Form
-The contact section (`src/sections/Contact.jsx`) uses Formspree. 
-To connect it to your own email:
+The contact section uses Formspree. To connect it to your own email:
 1. Create a free account at [Formspree](https://formspree.io/).
 2. Create a new form.
-3. Replace `"https://formspree.io/f/YOUR_FORM_ID"` in `Contact.jsx` with your unique endpoint.
+3. Replace the target URL in [Contact.jsx](file:///Users/thrivikrampudi/Downloads/Portfolio-3D/src/sections/Contact.jsx) with your unique endpoint.
 
 ---
 
@@ -143,6 +175,8 @@ To connect it to your own email:
 * **Component Modularity:** Strict separation of 3D logic (`src/three`) and 2D DOM overlays (`src/sections`).
 * **Hardware Acceleration:** Transitions and animations strictly utilize `transform` and `opacity` to ensure 60fps performance without triggering main-thread layout recalculations.
 * **Scroll-Jacking Safety:** Scroll-based progression is decoupled from standard browser scrolling using bounded viewports (`h-[600vh]`), preventing jarring UX common in 3D web experiences.
+* **Performance Fallbacks:** Implements adaptive performance scales by monitoring frame rate drops using R3F `PerformanceMonitor` to disable heavy rendering shaders.
+* **Session Caching:** API network requests (like fetching GitHub repo metadata) are cached with sessionStorage for 10 minutes to respect API query quotas.
 
 ---
 
@@ -154,6 +188,7 @@ To connect it to your own email:
 [🐙 GitHub](https://github.com/SiddhuPudi)
 
 ---
+
 <div align="center">
   <sub>Built with ❤️ and excessive amounts of coffee.</sub>
 </div>
