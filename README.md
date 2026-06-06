@@ -99,35 +99,65 @@ To get a local copy up and running, follow these simple steps.
 ## 🏗 Architecture & Structure
 
 ```text
-├── public/                 # Static assets (Resume PDF, Images, 3D Models)
-├── src/
-│   ├── components/         # Reusable UI components
-│   │   ├── layout/         # Core layout wrappers (Overlay.jsx, Preloader.jsx, SectionNav.jsx)
-│   │   ├── icons/          # Centralized icon modules (GithubIcon.jsx)
-│   │   ├── CustomCursor.jsx# Global custom cursor logic
-│   │   └── GlobalErrorBoundary.jsx # Catch-all runtime error boundaries
-│   ├── data/               # Local JSON/JS data configurations
-│   │   ├── config.js       # Centralized personal site configuration
-│   │   └── projects.js     # Project portfolio registry
-│   ├── sections/           # Modular viewport sections
-│   │   ├── Hero.jsx        # Introduction, stats, and CTAs
-│   │   ├── About.jsx       # Bio and photo split layout
-│   │   ├── Projects.jsx    # Horizontal animated project carousel
-│   │   ├── Skills.jsx      # Categorized tech-stack icon grid
-│   │   ├── Resume.jsx      # Academic journey, CP profiles & GitHub activity
-│   │   └── Contact.jsx     # Social grid, contact form with char counter & footer
-│   ├── three/              # WebGL / Three.js logic
-│   │   ├── CanvasLayout.jsx# R3F Canvas with PerformanceMonitor optimization
-│   │   ├── CameraRig.jsx   # Scroll-based camera interpolation
-│   │   └── Scene.jsx       # R3F Scene elements (particles, fog, lights)
-│   ├── utils/              # Helper utilities
-│   │   └── github.js       # GitHub API integration with session caching
-│   ├── App.jsx             # Main application orchestrator
-│   ├── index.css           # Global Tailwind & Custom CSS tokens
-│   └── main.jsx            # React root entry point with GlobalErrorBoundary
-├── tailwind.config.js      # Tailwind theme extensions & custom colors
-├── vite.config.js          # Vite configuration
-└── package.json            # Project metadata and scripts
+├── .env                        # Environment variables
+├── .github/
+│   └── workflows/
+│       └── ci.yml              # CI pipeline (build + test + Lighthouse)
+├── .gitignore
+├── eslint.config.js            # ESLint flat-config
+├── index.html                  # App entry HTML (SEO meta, OG tags)
+├── lighthouserc.json           # Lighthouse CI thresholds
+├── package.json                # Project metadata and scripts
+├── postcss.config.js           # PostCSS plugin config
+├── tailwind.config.js          # Tailwind theme extensions & custom colors
+├── vite.config.js              # Vite configuration
+│
+├── public/                     # Static assets served at root
+└── src/
+    ├── App.jsx                 # Main application orchestrator
+    ├── index.css               # Global Tailwind & custom CSS tokens
+    ├── main.jsx                # React root entry point with GlobalErrorBoundary
+    ├── animations/
+    │   └── variants.js         # Shared Framer Motion animation variants
+    ├── components/
+    │   ├── BackToTop.jsx       # Scroll-to-top floating button
+    │   ├── CanvasErrorBoundary.jsx # Error boundary for 3D canvas failures
+    │   ├── CustomCursor.jsx    # Global neon custom cursor logic
+    │   ├── GlobalErrorBoundary.jsx # Top-level runtime error boundary
+    │   ├── MagneticButton.jsx  # Hover-magnetic interactive button wrapper
+    │   ├── icons/
+    │   │   └── GithubIcon.jsx  # Centralized GitHub SVG icon component
+    │   └── layout/
+    │       ├── Overlay.jsx     # 2D DOM overlay wrapper
+    │       ├── Preloader.jsx   # Initial loading splash screen
+    │       ├── ScrollProgress.jsx # Scroll progress indicator bar
+    │       └── SectionNav.jsx  # Side navigation dots / section switcher
+    ├── context/
+    │   └── ThemeContext.jsx    # Dark-mode theme context provider
+    ├── data/
+    │   ├── config.js           # Centralized personal site configuration
+    │   └── projects.js         # Project portfolio registry
+    ├── sections/
+    │   ├── About.jsx           # Bio and photo split layout
+    │   ├── Contact.jsx         # Social grid, contact form with char counter & footer
+    │   ├── Hero.jsx            # Introduction, stats, and CTAs
+    │   ├── Projects.jsx        # Horizontal animated project carousel
+    │   ├── Resume.jsx          # Academic journey, CP profiles & GitHub activity
+    │   └── Skills.jsx          # Categorized tech-stack icon grid
+    ├── test/
+    │   ├── data.test.js        # Data validation tests
+    │   ├── sections.test.jsx   # Component smoke tests
+    │   └── setup.js            # Vitest setup / DOM mocks
+    ├── three/
+    │   ├── CameraRig.jsx       # Scroll-based camera interpolation
+    │   ├── CanvasLayout.jsx    # R3F Canvas with PerformanceMonitor
+    │   ├── Scene.jsx           # Scene graph (particles, fog, lights)
+    │   └── environments/
+    │       ├── BackgroundDepth.jsx  # Deep-layer starfield particles
+    │       ├── ForegroundDepth.jsx  # Close-layer floating particles
+    │       └── Midground.jsx       # Central 3D geometry elements
+    └── utils/
+        └── github.js           # GitHub API fetcher with session caching
 ```
 
 ---
